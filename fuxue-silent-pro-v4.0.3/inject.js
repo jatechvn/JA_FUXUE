@@ -178,6 +178,10 @@
             v.playbackRate = 1.0;
             v.style.filter = 'brightness(0)';
             
+            if (typeof window.videoPlayer !== 'undefined' && typeof window.videoPlayer.play === 'function') {
+                try { window.videoPlayer.play(); } catch(e) {}
+            }
+
             v.muted = false;
             v.volume = 0.03;
             
@@ -962,8 +966,14 @@
         // XỬ LÝ TỰ ĐỘNG ĐỌC TÀI LIỆU PDF / DOCUMENT (TỰ ĐỘNG LẬT TRANG CHUẨN XÁC)
         // -------------------------------------------------------------
         const currentWare = (window.wares && typeof window.video_index !== 'undefined') ? window.wares[window.video_index] : null;
-        const isPdfMode = (currentWare && (currentWare.type === 'pdf' || currentWare.sourceSuffix === 'pdf')) || 
-                          document.querySelector('.pdfwarp:not(.dpn), .pdflogo, #pdf:not(.dpn)');
+        const isPdfWare = Boolean(currentWare && (currentWare.type === 'pdf' || currentWare.sourceSuffix === 'pdf' || currentWare.type === 'doc' || currentWare.sourceSuffix === 'doc'));
+        const isVisiblePdfDom = Boolean(
+            (!video || !video.src) && (
+                (document.querySelector('.pdfwarp') && !document.querySelector('.pdfwarp').classList.contains('dpn') && document.querySelector('.pdfwarp').style.display !== 'none') ||
+                (document.getElementById('pdf') && !document.getElementById('pdf').classList.contains('dpn') && document.getElementById('pdf').style.display !== 'none')
+            )
+        );
+        const isPdfMode = isPdfWare || (!currentWare && isVisiblePdfDom);
 
         if (isPdfMode) {
             // 1. Tự động bấm nút Bắt đầu đọc PDF nếu xuất hiện màn hình chờ (.pdflogo / .pdfwarp)

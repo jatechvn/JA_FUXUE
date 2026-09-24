@@ -19,6 +19,7 @@ Tất cả các thay đổi quan trọng của dự án FUXUE SILENT PRO đượ
   - Nhận diện thông minh thông báo `"No Exam"` / `"Khóa học không có kỳ thi"` và dừng chuyển hướng sai sang `/public/play/examUI`.
 
 ### 🐛 Sửa lỗi & Tối ưu hóa
+- **Khắc phục xung đột nhận diện PDF (.pdflogo DOM template):** Phân tách chính xác giữa Video (mp4/flv) và PDF (pdf/doc) dựa trên thuộc tính `currentWare.type`, khắc phục triệt để lỗi thẻ ẩn `.pdflogo` khiến extension nhận diện nhầm video là PDF và dừng phát tự động.
 - **Chống desync và duplicate clicks:** Khóa cờ trạng thái `window._jaExamSolving` và loại bỏ click lặp gây uncheck các ô checkbox trên giao diện câu hỏi nhiều đáp án.
 - **Tối ưu hóa Audio Heartbeat:** Đảm bảo tab không bị đóng băng khi trình duyệt Chromium chạy ngầm hoặc thu nhỏ.
 - **Đồng bộ hóa giao diện cài đặt:** Cập nhật `FUXUE_V4_PRO_INSTALLER.html` và `index.html` lên phiên bản v4.1.2.
