@@ -136,15 +136,32 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        logContainer.innerHTML = currentLogs.map(item => `
-            <div class="log-entry">
-                <div class="log-meta">
-                    <span>${item.time}</span>
-                    <span class="log-badge ${item.type}">${item.type} • ${item.tag}</span>
-                </div>
-                <div class="log-msg">${item.msg}</div>
-            </div>
-        `).join('');
+        const fragment = document.createDocumentFragment();
+        currentLogs.forEach(item => {
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+
+            const meta = document.createElement('div');
+            meta.className = 'log-meta';
+
+            const time = document.createElement('span');
+            time.textContent = String(item.time || '');
+            meta.appendChild(time);
+
+            const badge = document.createElement('span');
+            const type = String(item.type || 'INFO');
+            badge.className = `log-badge ${['SUCCESS', 'INFO', 'WARN', 'ERROR'].includes(type) ? type : 'INFO'}`;
+            badge.textContent = `${type} • ${String(item.tag || 'SYSTEM')}`;
+            meta.appendChild(badge);
+
+            const message = document.createElement('div');
+            message.className = 'log-msg';
+            message.textContent = String(item.msg || '');
+
+            entry.append(meta, message);
+            fragment.appendChild(entry);
+        });
+        logContainer.replaceChildren(fragment);
     };
 
     const loadLogsFromTab = () => {

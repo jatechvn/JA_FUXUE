@@ -10,6 +10,8 @@ Tất cả các thay đổi quan trọng của dự án FUXUE SILENT PRO đượ
   - Chuẩn hóa bộ lọc: Ưu tiên thuộc tính `currentWare.type` (`mp4`/`flv` vs `pdf`/`doc`) từ máy chủ Foxconn; chỉ kích hoạt PDF mode khi đối tượng bài học thực sự là PDF hoặc container PDF hiển thị thực tế (`offsetParent !== null` và không có class `.dpn`).
 - **Tăng cường đồng bộ hóa Player (`window.videoPlayer.play()`):**
   - Bổ sung lệnh đánh thức trực tiếp đối tượng Video.js instance trong `forcePlayVideo`, đảm bảo video luôn phát trơn tru và tự phục hồi ngay lập tức nếu bị ngắt quãng.
+- **Bảo mật giao diện Popup (Anti-XSS):**
+  - Chuyển đổi toàn bộ phương thức dựng nhật ký hoạt động (`renderLogs` trong `popup.js`) từ `innerHTML` sang `DocumentFragment` và gán thuộc tính văn bản an toàn qua `textContent` (theo đề xuất từ Codex / `gpt-ecc-agent-code-reviewer`), triệt tiêu hoàn toàn nguy cơ chèn mã HTML độc hại.
 
 ### 📦 Phát hành
 - Đồng bộ version 4.1.3 trong `manifest.json`, `content.js`, `inject.js`, `popup.html`, `auto_study_foxconn_v4.0.3_full.js`, `ABOUT.txt`, `README.md`, `USERGUIDE.md`, `RELEASE_NOTES.md`.
