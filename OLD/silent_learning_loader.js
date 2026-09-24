@@ -1,0 +1,1 @@
+javascript:(function(){const s=document.createElement('script');s.src='file:///D:/OS-Software/OneDrive/OpenClaw_Workspace/JA_PROJECT/PROJECT_JS/FUXUE/silent_learning_glass_v1.6.js';document.body.appendChild(s);})();

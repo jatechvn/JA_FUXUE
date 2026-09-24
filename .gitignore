@@ -1,0 +1,19 @@
+# Release packages & temporary build artifacts
+dist/
+dist_pack/
+backup/
+scratch/
+.gemini/
+*.zip
+
+# Backup and temporary files
+*.bak
+*.tmp
+*.log
+* - Copy.*
+* - Copy*
+
+# OS specific
+Thumbs.db
+Desktop.ini
+.DS_Store

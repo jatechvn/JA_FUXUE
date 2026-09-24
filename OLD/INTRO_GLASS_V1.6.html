@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💎 Silent Learning V1.6 - Stable Mastery</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --text: #ffffff;
+            --primary: #00d4ff;
+            --accent: #ff4500;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #0f0c29);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .orb {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+        }
+        .orb-1 { background: #00d4ff; top: -10%; right: -10%; }
+        .orb-2 { background: #ff4500; bottom: -10%; left: -10%; }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 50px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin: 10px 0;
+            color: #fff;
+            mix-blend-mode: difference;
+            letter-spacing: -1px;
+        }
+
+        .version-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: bold;
+            mix-blend-mode: difference;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            min-width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .feature-content strong {
+            display: block;
+            color: #fff;
+            font-size: 1.05rem;
+        }
+
+        .feature-content p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .install-box {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            border: 2px dashed var(--primary);
+        }
+
+        .install-box h2 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .bookmark-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #00d4ff 0%, #0056ff 100%);
+            color: #fff !important;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: move;
+            user-select: none;
+        }
+
+        .bookmark-btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .hint {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #fffa00;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.4;
+            font-size: 0.8rem;
+            color: #fff;
+            mix-blend-mode: difference;
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <div class="glass-panel">
+            <header>
+                <span class="version-tag">STABLE RELEASE V1.6</span>
+                <h1>Silent Learning</h1>
+                <p style="mix-blend-mode: difference; opacity: 0.8;">Hệ thống học tập thích ứng V1.6 - Core V3.8 Stable 🦞</p>
+            </header>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="icon">🚀</div>
+                    <div class="feature-content">
+                        <strong>V3.8 Engine Integration</strong>
+                        <p>Kế thừa bộ core ổn định nhất của V3.8, khắc phục hoàn toàn lỗi Unexpected End of Input.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">🎬</div>
+                    <div class="feature-content">
+                        <strong>Visual Time Sync</strong>
+                        <p>Hiển thị thời gian thực của video trực tiếp trên giao diện kính mờ.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">🛡️</div>
+                    <div class="feature-content">
+                        <strong>jQuery Neutralizer</strong>
+                        <p>Tự động gỡ bỏ các ràng buộc jQuery gây dừng video khi rời khỏi Tab.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">💎</div>
+                    <div class="feature-content">
+                        <strong>Smart Liquid Glass</strong>
+                        <p>Giao diện hiện đại với hiệu ứng Glassmorphism và chế độ đảo màu thông minh.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-box">
+                <h2>Cài đặt & Sử dụng</h2>
+                <p style="margin-bottom: 25px; opacity: 0.8; text-align: left; max-width: 450px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+                    1. <b>Kéo</b> nút màu xanh bên dưới thả vào thanh dấu trang (Bookmark Bar).<br>
+                    2. <b>Mở</b> trang bài học bất kỳ trên Phú Học (Fu-Learning).<br>
+                    3. <b>Nhấn</b> vào dấu trang vừa lưu để kích hoạt hệ thống.
+                </p>
+                
+                <a class="bookmark-btn" id="dragBtn" title="Kéo tôi lên thanh Bookmark!" href="#">
+                    Silent Learning V1.6
+                </a>
+
+                <span class="hint">💡 Phiên bản ổn định nhất dựa trên lõi V3.8 Stable</span>
+            </div>
+        </div>
+
+        <footer class="footer">
+            Designed for Johnny by Linh 📸🦞<br>
+            OpenClaw AI Personal Assistant
+        </footer>
+    </div>
+
+    <script>
+        const rawCode = `javascript:(function(){if(window.fuxueSilentV1Active)return;window.fuxueSilentV1Active=true;const k=()=>{try{if(window.jQuery){const $w=window.jQuery(window);$w.off('blur focus focusout visibilitychange')}const b=(e)=>{e.stopImmediatePropagation();e.stopPropagation()};window.addEventListener('blur',b,true);window.addEventListener('focusout',b,true);document.addEventListener('visibilitychange',b,true);Object.defineProperty(document,'hidden',{get:()=>false,configurable:true});Object.defineProperty(document,'visibilityState',{get:()=>'visible',configurable:true});const p=HTMLVideoElement.prototype.pause;HTMLVideoElement.prototype.pause=function(){if(!this.ended&&this.readyState>2)return;return p.apply(this,arguments)}}catch(e){}};k();const h=document.createElement('div');h.style.cssText="padding:15px;background:rgba(255,255,255,0.15);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);color:#fff;mix-blend-mode:difference;border:1px solid rgba(255,255,255,0.3);border-radius:20px;font-family:sans-serif;font-size:12px;min-width:250px;position:fixed;bottom:25px;right:25px;z-index:9999999;";h.innerHTML='<b style="font-size:14px;display:block;margin-bottom:8px;">🦞 SILENT V1.6</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div>Mode: <span id="h-m">...</span></div><div>Stat: <span id="h-s">Run</span></div><div>Time: <span id="h-v">00:00</span></div><div>Less: <span id="h-l">N/A</span></div></div>';document.body.appendChild(h);const ui=(i,t)=>{const e=document.getElementById('h-'+i);if(e)e.innerText=t};let lT=-1,fS=0,lC=-1,w=0;const hasC=window.wares&&window.wares.some(x=>['pdf','doc','html'].includes(x.type));ui('m',hasC?'HYBRID':'FAST');const obs=new MutationObserver(()=>{const b=document.querySelector('.layui-layer-btn0');if(b){b.click();ui('s','Sync OK')}});obs.observe(document.body,{childList:true,subtree:true});setInterval(()=>{const v=document.querySelector('video'),a=document.querySelector('dd.active');let pD=false;if(hasC&&w>0){w-=3000;return}if(v){const td=document.querySelector('.vjs-remaining-time-display');if(td&&td.innerText.trim()){ui('v',td.innerText.replace('-','').trim())}else{const c=Math.floor(v.currentTime);ui('v',Math.floor(c/60)+":"+(c%60).toString().padStart(2,'0'))}}try{if(window.wares&&typeof window.video_index!=='undefined'){const c=window.wares[window.video_index];if(c&&['pdf','doc','html'].includes(c.type)){ui('v','DOC');if(c.isComplete!=='Y'&&!c._v1){const p={'starttime':c.starttime,'endtime':new Date().getTime()+(window.diff_localTime||0),'playtime':c.page||100,'courseid':window.courseId,'wareid':c.wareId,'chapterid':c.chapterId,'completestatus':'Y','page':c.page||1,'username':window.userName,'versionname':'v1','deviceid':window.courseToken};if(window.encrypt&&window.realSendRecord){window.realSendRecord((window.path||'')+'/public/play/addStudyRecordnew?data='+window.encrypt(JSON.stringify(p)),c.wareId,'v1')}c._v1=true;c.isComplete='Y';if(a)a.innerHTML=a.innerHTML.replace(/\\\\d+%/,'')+' Done';pD=true;w=3000}else if(c.isComplete==='Y')pD=true}}}catch(e){}if(v&&v.offsetHeight>5){v.muted=true;v.style.width='1px';v.style.height='1px';if(v.paused&&!v.ended&&!document.querySelector('.layui-layer-btn0')){if(window.videoPlayer)window.videoPlayer.play();v.play().catch(()=>{})}if(!v.paused&&!v.ended){if(Math.abs(v.currentTime-lT)<0.01){fS++;if(fS>15){fS=0;v.currentTime+=1}}else{fS=0;lT=v.currentTime}}}ui('l',a?a.innerText.split(' ')[0]:'N/A');const d=/(Finished|hoàn thành|100%|Done)/i.test(a?a.innerText:\"\")||pD;if(v&&v.ended&&!d){v.currentTime=0;if(window.videoPlayer)window.videoPlayer.play();else v.play()}if((v&&v.ended||d)&&a){const al=Array.from(document.querySelectorAll('dd'));const idx=al.indexOf(a);let nx=null;for(let i=0;i<al.length;i++){if(i>idx&&!/(Finished|hoàn thành|100%|Done)/i.test(al[i].innerText)){nx=al[i];break}}if(nx&&lC!==al.indexOf(nx)){lC=al.indexOf(nx);w=hasC?6000:0;const m=nx.getAttribute('onclick')?.match(/dianji\\\\((\\\\d+)/);if(m&&window.dianji)window.dianji(parseInt(m[1]),nx);else nx.click()}else if(!nx&&d)ui('s','Done!')}},3000)})();`;
+        document.getElementById('dragBtn').href = rawCode;
+    </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☀️ Silent Learning V1.0 - Giao diện Tươi sáng</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f6f8fa;
+            --surface: #ffffff;
+            --primary: #0969da;
+            --secondary: #d0d7de;
+            --accent: #1a7f37;
+            --text: #1f2328;
+            --lobster: #d93d00;
+            --shadow: 0 8px 24px rgba(149,157,165,0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 40px;
+        }
+
+        .badge {
+            background: rgba(9, 105, 218, 0.1);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin: 20px 0;
+            color: var(--text);
+            letter-spacing: -1px;
+        }
+
+        .version-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--lobster);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--secondary);
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 32px rgba(149,157,165,0.3);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+        }
+
+        .card p { font-size: 0.95rem; color: #57606a; }
+
+        .feature-list {
+            background: var(--surface);
+            padding: 48px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border-top: 6px solid var(--primary);
+            margin-bottom: 60px;
+        }
+
+        .feature-list h2 { margin-bottom: 32px; font-size: 2rem; font-weight: 800; color: var(--text); }
+        
+        .feature-item {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .feature-item .num {
+            background: var(--primary);
+            color: white;
+            min-width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .code-section {
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .code-section header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--secondary);
+            text-align: left;
+        }
+
+        .btn-copy {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: opacity 0.2s;
+        }
+
+        .btn-copy:hover { opacity: 0.9; }
+
+        .footer {
+            text-align: center;
+            color: #57606a;
+            font-size: 0.9rem;
+            margin-top: 80px;
+            padding-bottom: 40px;
+        }
+
+        .mode-indicator {
+            display: inline-flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .mode {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+
+        .mode-fast { color: #1a7f37; background: #dafbe1; }
+        .mode-hybrid { color: #9a6700; background: #fff8c5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="badge">OpenClaw Premium Automation</span>
+            <h1>Silent Learning</h1>
+            <p class="version-tag">Version 1.0 — Chế độ Tự thích nghi ☀️</p>
+            <div class="mode-indicator">
+                <span class="mode mode-fast">🚀 FAST (Video thuần)</span>
+                <span class="mode mode-hybrid">💎 HYBRID (Tài liệu)</span>
+            </div>
+        </header>
+
+        <section class="grid">
+            <div class="card">
+                <h3>Phân tích Thông minh</h3>
+                <p>Hệ thống tự động quét cấu trúc bài học ngay khi khởi chạy để đưa ra phương án xử lý tối ưu nhất.</p>
+            </div>
+            <div class="card">
+                <h3>Đồng bộ Tức thì</h3>
+                <p>Tự động hóa hoàn toàn việc đồng bộ hóa tiến độ bài học tài liệu PDF/DOC lên hệ thống máy chủ trung tâm.</p>
+            </div>
+            <div class="card">
+                <h3>Ổn định Tuyệt đối</h3>
+                <p>Tích hợp sâu vào mã nguồn gốc của trang web, đảm bảo quá trình học diễn ra liên tục, không lỗi.</p>
+            </div>
+        </section>
+
+        <section class="feature-list">
+            <h2>Hệ thống Tự động hóa V1.0</h2>
+            <div class="feature-item">
+                <div class="num">01</div>
+                <div>
+                    <strong>Tối ưu hóa Tốc độ:</strong> Ở chế độ FAST, hệ thống loại bỏ mọi độ trễ dư thừa, giúp chuyển đổi bài học ngay lập tức khi hoàn thành.
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="num">02</div>
+                <div>
+                    <strong>Xử lý Tài liệu Không gián đoạn:</strong> Cơ chế No-Reload giúp cập nhật trạng thái "Finished" trực tiếp trên màn hình mà không cần tải lại toàn bộ trang web.
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="num">03</div>
+                <div>
+                    <strong>Cơ chế Dual-Trigger:</strong> Đảm bảo trình phát Video khởi động ổn định sau mỗi lần chuyển bài thông qua việc kích hoạt song song các thành phần điều khiển.
+                </div>
+            </div>
+        </section>
+
+        <section class="code-section">
+            <header>
+                <span style="color: var(--primary); font-weight: 800;">Mã nguồn Bookmarklet (V1.0)</span>
+                <button class="btn-copy">SAO CHÉP MÃ</button>
+            </header>
+            <p style="word-break: break-all; color: #57606a; font-size: 0.85rem;">
+                javascript:(function(){if(window.fuxueSilentV1Active){console.log("Already Active");return}window.fuxueSilentV1Active=true;const h=document.createElement('div');h.innerHTML=`<div style="padding:12px;background:rgba(255,255,255,.95);color:#0969da;border:1px solid #d0d7de;border-radius:10px;font-family:monospace;font-size:11px;min-width:240px;position:fixed;bottom:20px;right:20px;z-index:9999999;box-shadow:0 8px 24px rgba(149,157,165,0.2)"><b>🦞 SILENT LEARNING V1.0</b><br>Mode: <span id="h-m">Auto</span><br>Stat: <span id="h-s">Run</span><br>Vid: <span id="h-v">N/A</span><br>Less: <span id="h-l">N/A</span></div>`;document.body.appendChild(h);const ui=(i,t)=>{const e=document.getElementById('h-'+i);if(e)e.innerText=t};let lT=-1,fS=0,lastClickIdx=-1,wait=0;const hasPDF=window.wares&&window.wares.some(w=>['pdf','doc','html'].includes(w.type));ui('m',hasPDF?'HYBRID':'FAST');window.fuxueObserver=new MutationObserver(()=>{const b=document.querySelector('.layui-layer-btn0');if(b){b.click();ui('s','Confirm OK')}});window.fuxueObserver.observe(document.body,{childList:true,subtree:true});setInterval(()=>{const v=document.querySelector('video'),a=document.querySelector('dd.active');let pdfDone=false;if(hasPDF&&wait>0){wait-=3000;return}try{if(window.wares&&typeof window.video_index!=='undefined'){const c=window.wares[window.video_index];if(c&&(c.type==='pdf'||c.type==='doc'||c.type==='html')){ui('v','DOCUMENT');if(c.isComplete!=='Y'&&!c._v1Processed){ui('s','Syncing...');const p={'starttime':c.starttime,'endtime':new Date().getTime()+(window.diff_localTime||0),'playtime':c.page||c.duration||100,'courseid':window.courseId,'wareid':c.wareId,'chapterid':c.chapterId,'completestatus':'Y','page':c.page||1,'username':window.userName,'versionname':'v1','deviceid':window.courseToken,'afterHours':typeof isPopReminder!=='undefined'?isPopReminder:''};if(window.encrypt&&window.realSendRecord){const d=window.encrypt(JSON.stringify(p));const u=(window.path||'')+'/public/play/addStudyRecordnew?data='+d;window.realSendRecord(u,c.wareId,'v1')}c._v1Processed=true;c.isComplete='Y';if(a&&!/(Finished|hoàn thành|100%|hoAn thAnh)/i.test(a.innerText)){a.innerHTML=a.innerHTML.replace(/\d+%/,'')+' Finished'}pdfDone=true;wait=3000}else if(c.isComplete==='Y'){pdfDone=true}}}}catch(e){}if(v&&v.offsetHeight>5){v.muted=true;v.style.width='1px';v.style.height='1px';ui('v',v.paused?'PAUSED':'PLAYING');if(!v.paused&&!v.ended){if(Math.abs(v.currentTime-lT)<0.1){fS++;if(fS>15){fS=0;v.currentTime+=1}}else{fS=0;lT=v.currentTime}}if(v.paused&&!v.ended&&!document.querySelector('.layui-layer-btn0')){if(typeof window.videoPlayer!=='undefined'&&typeof window.videoPlayer.play==='function'){window.videoPlayer.play()}v.play().catch(()=>{})}}ui('l',a?a.innerText.split(' ')[0]:'N/A');const txt=a?a.innerText:"";const done=/(Finished|hoàn thành|100%|hoAn thAnh)/i.test(txt)||pdfDone;if(v&&v.ended&&!done){v.currentTime=0;if(typeof window.videoPlayer!=='undefined'&&typeof window.videoPlayer.play==='function')window.videoPlayer.play();else v.play();ui('s','Rewinding...')}if((v&&v.ended)||done){const all=Array.from(document.querySelectorAll('dd')),idx=all.indexOf(a);let nxt=null;let nxtIdx=-1;for(let i=0;i<all.length;i++){if(i>idx&&!/(Finished|hoàn thành|100%|hoAn thAnh)/i.test(all[i].innerText)){nxt=all[i];nxtIdx=i;break}}if(nxt&&lastClickIdx!==nxtIdx){lastClickIdx=nxtIdx;ui('s','Next...');wait=hasPDF?6000:0;const m=nxt.getAttribute('onclick')?.match(/dianji\((\d+)/);if(m&&typeof window.dianji==='function'){window.dianji(parseInt(m[1]),nxt)}else{nxt.click()}}else if(!nxt&&done){ui('s','Course Done!')}}},3000)})();
+            </p>
+        </section>
+
+        <footer class="footer">
+            Designed for Johnny by Linh 📸🦞<br>
+            OpenClaw AI Personal Assistant | Foxconn Global Workflows
+        </footer>
+    </div>
+</body>
+</html>

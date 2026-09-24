@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foxconn iEdu Auto-Study v3.0 - Overview</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #58a6ff;
+            border-bottom: 2px solid #30363d;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        .version-badge {
+            background: #238636;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .feature-card {
+            background: #0d1117;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #1f6feb;
+        }
+        .feature-card h3 {
+            margin-top: 0;
+            color: #f0f6fc;
+            font-size: 1.1em;
+        }
+        .hud-preview {
+            background: rgba(0,0,0,0.9);
+            color: #00ff00;
+            padding: 15px;
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        .tech-stack {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #8b949e;
+            font-style: italic;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8em;
+            color: #484f58;
+        }
+        code {
+            background: #30363d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ff7b72;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Foxconn iEdu Auto-Study <span class="version-badge">v3.0 Ultimate</span></h1>
+        
+        <p>Bản nâng cấp <strong>v3.0</strong> được thiết kế dựa trên triết lý <em>Everything-Claude-Code</em>, tập trung vào khả năng quan sát (Observability) và độ bền bỉ (Resilience) khi treo máy thời gian dài.</p>
+
+        <div class="hud-preview">
+            <div style="font-weight: bold; border-bottom: 1px border-color: #00ff00; margin-bottom: 5px;">🤖 OpenClaw Auto-Study v3.0</div>
+            <div>Trạng thái: 🟢 Đang chạy tự động...</div>
+            <div>Video: PLAYING (124s)</div>
+            <div>Điểm danh: 3 lần</div>
+            <div>Kẹt/Lag: 0 giây</div>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🖥️ Giao diện HUD Trực quan</h3>
+                <p>Hiển thị bảng điều khiển trôi nổi ngay trên trang web. Bạn có thể theo dõi tiến độ mà không cần mở Console (F12).</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚡ Bắt Pop-up Tức thì</h3>
+                <p>Sử dụng <code>MutationObserver</code> để bắt và click nút "Xác nhận" ngay khi nó vừa xuất hiện trong DOM, độ trễ &lt; 1ms.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🛡️ Chống Treo (Anti-Freeze)</h3>
+                <p>Tự động phát hiện video bị kẹt do mạng lag. Nếu thời gian đứng yên > 10s, hệ thống tự động F5 để tiếp tục bài học.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🎯 Chuyển Bài Thông minh</h3>
+                <p>Nhận diện mục lục dựa trên thuộc tính <code>active</code> và mã màu đặc trưng của iEdu để tự động chuyển sang video tiếp theo.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🍃 Siêu Tiết kiệm Băng thông</h3>
+                <p>Ép video về 1x1 pixel, tắt tiếng và thu nhỏ tài nguyên hiển thị để giảm tải tối đa cho CPU và đường truyền mạng.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🏁 Tự động Dọn dẹp</h3>
+                <p>Khi hoàn thành bài cuối cùng, script tự động giải phóng bộ nhớ, ngắt các bộ lọc theo dõi và báo cáo kết quả hoàn tất.</p>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            Công nghệ áp dụng: JavaScript ES6+, DOM MutationObserver, CSS3 Floating HUD, Heartbeat Resilience Logic.
+        </div>
+
+        <div class="footer">
+            Phát triển bởi OpenClaw Assistant & Everything-Claude-Code Knowledge Base.
+        </div>
+    </div>
+</body>
+</html>

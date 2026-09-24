@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="popup-container" id="main-view">
+        <div class="popup-header">
+            <div class="logo-area">
+                <div class="logo-icon">🛡️</div>
+                <div>
+                    <div class="app-name">FUXUE SILENT PRO</div>
+                    <div class="app-version">v4.1.2 Stealth Edition</div>
+                </div>
+            </div>
+            <div class="status-indicator online" id="global-status">ACTIVE</div>
+        </div>
+
+        <!-- Master Stop / Start Controller -->
+        <div class="master-control-section">
+            <button id="btn-master-toggle" class="btn-master btn-master-running">
+                <span id="btn-master-icon" class="btn-master-icon">⏹️</span>
+                <span id="btn-master-text" class="btn-master-text">DỪNG TỰ ĐỘNG</span>
+            </button>
+        </div>
+
+        <div class="toggle-list">
+            <div class="toggle-item">
+                <div class="toggle-info">
+                    <div class="toggle-title">Anti-Pause & Stealth</div>
+                    <div class="toggle-desc">Khóa focus, chặn phát hiện ẩn tab</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="chk-antipause" checked disabled>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="toggle-item">
+                <div class="toggle-info">
+                    <div class="toggle-title">Audio Heartbeat</div>
+                    <div class="toggle-desc">Chống đóng băng Chromium nền</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="chk-heartbeat" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="toggle-item">
+                <div class="toggle-info">
+                    <div class="toggle-title">Hybrid PDF Instant Sync</div>
+                    <div class="toggle-desc">Tự động hoàn thành tài liệu PDF/DOC</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="chk-pdf" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="toggle-item">
+                <div class="toggle-info">
+                    <div class="toggle-title">Auto-Exam Solver</div>
+                    <div class="toggle-desc">Tự thu thập và điền đáp án thi</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="chk-exam" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="exam-status-section">
+            <div class="section-label">CHẾ ĐỘ HỌC & THI (ORGANIC 1.0X):</div>
+            <div class="status-badge-grid">
+                <div class="status-badge-item">
+                    <span class="badge-dot green"></span>
+                    <span class="badge-text">Tốc độ: <b>1.0x Realtime (Chống tua)</b></span>
+                </div>
+                <div class="status-badge-item">
+                    <span class="badge-dot blue"></span>
+                    <span class="badge-text">Exam: <b id="popup-exam-count">Tự học & loại trừ câu sai</b></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-footer">
+            <button id="btn-view-logs" class="btn-action btn-logs">📑 Nhật Ký</button>
+            <button id="btn-copy-keys" class="btn-action">📋 Đáp Án</button>
+            <button id="btn-reset-cache" class="btn-action btn-danger">🔄 Đặt Lại</button>
+        </div>
+    </div>
+
+    <!-- Interactive Glassmorphic Log Modal View -->
+    <div id="log-view" class="popup-container log-modal" style="display: none;">
+        <div class="log-modal-header">
+            <div class="log-modal-title">
+                <span>📑</span>
+                <b>NHẬT KÝ HOẠT ĐỘNG</b>
+            </div>
+            <button id="btn-close-logs" class="btn-close-modal">✕ Đóng</button>
+        </div>
+        <div class="log-tip">Tự động lưu lịch sử ngầm & xoá sau 3 ngày</div>
+        <div id="log-container" class="log-container">
+            <div class="log-empty">Đang đọc dữ liệu nhật ký...</div>
+        </div>
+        <div class="log-actions">
+            <button id="btn-download-logs" class="btn-log-action btn-primary-log">📥 Tải File Log (.txt)</button>
+            <button id="btn-clear-logs" class="btn-log-action btn-danger-log">🗑️ Xóa</button>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

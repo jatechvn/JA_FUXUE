@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 Silent Learning V1.0 - Hệ thống Học tập Thông minh</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --primary: #58a6ff;
+            --secondary: #30363d;
+            --accent: #238636;
+            --text: #c9d1d9;
+            --lobster: #ff4500;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--secondary);
+            padding-bottom: 40px;
+        }
+
+        .badge {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 20px 0;
+            background: linear-gradient(90deg, #58a6ff, #ff4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .version-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--lobster);
+            font-size: 1.2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--secondary);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p { font-size: 0.95rem; color: #8b949e; }
+
+        .feature-list {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 12px;
+            border-left: 4px solid var(--lobster);
+            margin-bottom: 60px;
+        }
+
+        .feature-list h2 { margin-bottom: 25px; font-size: 1.8rem; }
+        
+        .feature-item {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .feature-item span {
+            color: var(--lobster);
+            font-weight: bold;
+        }
+
+        .code-section {
+            background: #010409;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--secondary);
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .code-section header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--secondary);
+            text-align: left;
+        }
+
+        .btn-copy {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            color: #484f58;
+            font-size: 0.8rem;
+            margin-top: 80px;
+        }
+
+        .mode-indicator {
+            display: inline-flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .mode {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border: 1px solid;
+        }
+
+        .mode-fast { color: #56d364; border-color: #238636; background: rgba(35, 134, 54, 0.1); }
+        .mode-hybrid { color: #e3b341; border-color: #9e6a03; background: rgba(158, 106, 3, 0.1); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="badge">OpenClaw Personal Automation</span>
+            <h1>Silent Learning</h1>
+            <p class="version-tag">Version 1.0 - Hybrid Adaptive System 🦞📸</p>
+            <div class="mode-indicator">
+                <span class="mode mode-fast">FAST MODE (Video)</span>
+                <span class="mode mode-hybrid">HYBRID MODE (Document)</span>
+            </div>
+        </header>
+
+        <section class="grid">
+            <div class="card">
+                <h3>Adaptive Strategy</h3>
+                <p>Hệ thống tự động phân tích cấu trúc khóa học để áp dụng quy trình xử lý dữ liệu phù hợp nhất.</p>
+            </div>
+            <div class="card">
+                <h3>Sync Automation</h3>
+                <p>Tự động đồng bộ hóa tiến độ bài học tài liệu trực tiếp với máy chủ học tập trung tâm.</p>
+            </div>
+            <div class="card">
+                <h3>Native Integration</h3>
+                <p>Móc nối trực tiếp vào các hàm hệ thống gốc của trang web để đảm bảo tính ổn định và chính xác cao nhất.</p>
+            </div>
+        </section>
+
+        <section class="feature-list">
+            <h2>Tính năng hệ thống V1.0</h2>
+            <div class="feature-item">
+                <span>01</span>
+                <div>
+                    <strong>Phân tích nội dung thích ứng:</strong> Tự động nhận diện Video, PDF, DOC hoặc HTML để tối ưu hóa thời gian chờ và phương thức truyền tải.
+                </div>
+            </div>
+            <div class="feature-item">
+                <span>02</span>
+                <div>
+                    <strong>Xử lý dữ liệu không gián đoạn:</strong> Cập nhật trạng thái "Finished" trực tiếp trên giao diện người dùng mà không cần tải lại trang, giúp duy trì phiên làm việc liên tục.
+                </div>
+            </div>
+            <div class="feature-item">
+                <span>03</span>
+                <div>
+                    <strong>Kỹ thuật Dual-Play Trigger:</strong> Kích hoạt đồng thời trình phát Video.js và các thành phần HTML5 gốc, loại bỏ hoàn toàn tình trạng treo bài học khi chuyển tiếp.
+                </div>
+            </div>
+        </section>
+
+        <section class="code-section">
+            <header>
+                <span>Bookmarklet Code (V1.0)</span>
+                <button class="btn-copy">COPY CODE</button>
+            </header>
+            <p style="word-break: break-all; color: #8b949e; font-size: 0.8rem;">
+                javascript:(function(){if(window.fuxueSilentV1Active){console.log("Already Active");return}window.fuxueSilentV1Active=true;const h=document.createElement('div');h.innerHTML=`<div style="padding:12px;background:rgba(13,17,23,.95);color:#0f0;border:1px solid #30363d;border-radius:10px;font-family:monospace;font-size:11px;min-width:240px;position:fixed;bottom:20px;right:20px;z-index:9999999"><b>🦞 SILENT LEARNING V1.0</b><br>Mode: <span id="h-m">Auto</span><br>Stat: <span id="h-s">Run</span><br>Vid: <span id="h-v">N/A</span><br>Less: <span id="h-l">N/A</span></div>`;document.body.appendChild(h);const ui=(i,t)=>{const e=document.getElementById('h-'+i);if(e)e.innerText=t};let lT=-1,fS=0,lastClickIdx=-1,wait=0;const hasPDF=window.wares&&window.wares.some(w=>['pdf','doc','html'].includes(w.type));ui('m',hasPDF?'HYBRID':'FAST');window.fuxueObserver=new MutationObserver(()=>{const b=document.querySelector('.layui-layer-btn0');if(b){b.click();ui('s','Confirm OK')}});window.fuxueObserver.observe(document.body,{childList:true,subtree:true});setInterval(()=>{const v=document.querySelector('video'),a=document.querySelector('dd.active');let pdfDone=false;if(hasPDF&&wait>0){wait-=3000;return}try{if(window.wares&&typeof window.video_index!=='undefined'){const c=window.wares[window.video_index];if(c&&(c.type==='pdf'||c.type==='doc'||c.type==='html')){ui('v','DOCUMENT');if(c.isComplete!=='Y'&&!c._v1Processed){ui('s','Syncing...');const p={'starttime':c.starttime,'endtime':new Date().getTime()+(window.diff_localTime||0),'playtime':c.page||c.duration||100,'courseid':window.courseId,'wareid':c.wareId,'chapterid':c.chapterId,'completestatus':'Y','page':c.page||1,'username':window.userName,'versionname':'v1','deviceid':window.courseToken,'afterHours':typeof isPopReminder!=='undefined'?isPopReminder:''};if(window.encrypt&&window.realSendRecord){const d=window.encrypt(JSON.stringify(p));const u=(window.path||'')+'/public/play/addStudyRecordnew?data='+d;window.realSendRecord(u,c.wareId,'v1')}c._v1Processed=true;c.isComplete='Y';if(a&&!/(Finished|hoàn thành|100%|hoAn thAnh)/i.test(a.innerText)){a.innerHTML=a.innerHTML.replace(/\d+%/,'')+' Finished'}pdfDone=true;wait=3000}else if(c.isComplete==='Y'){pdfDone=true}}}}catch(e){}if(v&&v.offsetHeight>5){v.muted=true;v.style.width='1px';v.style.height='1px';ui('v',v.paused?'PAUSED':'PLAYING');if(!v.paused&&!v.ended){if(Math.abs(v.currentTime-lT)<0.1){fS++;if(fS>15){fS=0;v.currentTime+=1}}else{fS=0;lT=v.currentTime}}if(v.paused&&!v.ended&&!document.querySelector('.layui-layer-btn0')){if(typeof window.videoPlayer!=='undefined'&&typeof window.videoPlayer.play==='function'){window.videoPlayer.play()}v.play().catch(()=>{})}}ui('l',a?a.innerText.split(' ')[0]:'N/A');const txt=a?a.innerText:"";const done=/(Finished|hoàn thành|100%|hoAn thAnh)/i.test(txt)||pdfDone;if(v&&v.ended&&!done){v.currentTime=0;if(typeof window.videoPlayer!=='undefined'&&typeof window.videoPlayer.play==='function')window.videoPlayer.play();else v.play();ui('s','Rewinding...')}if((v&&v.ended)||done){const all=Array.from(document.querySelectorAll('dd')),idx=all.indexOf(a);let nxt=null;let nxtIdx=-1;for(let i=0;i<all.length;i++){if(i>idx&&!/(Finished|hoàn thành|100%|hoAn thAnh)/i.test(all[i].innerText)){nxt=all[i];nxtIdx=i;break}}if(nxt&&lastClickIdx!==nxtIdx){lastClickIdx=nxtIdx;ui('s','Next...');wait=hasPDF?6000:0;const m=nxt.getAttribute('onclick')?.match(/dianji\((\d+)/);if(m&&typeof window.dianji==='function'){window.dianji(parseInt(m[1]),nxt)}else{nxt.click()}}else if(!nxt&&done){ui('s','Course Done!')}}},3000)})();
+            </p>
+        </section>
+
+        <footer class="footer">
+            Designed for Johnny by Linh 📸🦞<br>
+            OpenClaw AI Personal Assistant | Foxconn Global Workflows
+        </footer>
+    </div>
+</body>
+</html>

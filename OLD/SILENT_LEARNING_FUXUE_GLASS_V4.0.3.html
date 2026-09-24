@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💎 Silent Learning V4.0.3 - Hệ thống Tự động hóa Fuxue</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --text: #ffffff;
+            --primary: #00d4ff;
+            --accent: #ff4500;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #0f0c29);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .orb {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+        }
+        .orb-1 { background: #00d4ff; top: -10%; right: -10%; }
+        .orb-2 { background: #ff4500; bottom: -10%; left: -10%; }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 50px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin: 10px 0;
+            color: #fff;
+            mix-blend-mode: difference;
+            letter-spacing: -1px;
+        }
+
+        .version-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: bold;
+            mix-blend-mode: difference;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            min-width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .feature-content strong {
+            display: block;
+            color: #fff;
+            font-size: 1.05rem;
+        }
+
+        .feature-content p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .install-box {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            padding: 40px;
+            border: 2px dashed var(--primary);
+        }
+
+        .install-box h2 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .bookmark-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #00d4ff 0%, #0056ff 100%);
+            color: #fff !important;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: move;
+            user-select: none;
+        }
+
+        .bookmark-btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .hint {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #fffa00;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.4;
+            font-size: 0.8rem;
+            color: #fff;
+            mix-blend-mode: difference;
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <div class="glass-panel">
+            <header>
+                <span class="version-tag">STABLE RELEASE V4.0.3</span>
+                <h1>Silent Learning</h1>
+                <p style="mix-blend-mode: difference; opacity: 0.8;">Hệ thống học tập thích ứng - Thiết kế bởi John Alaa 📸🦞</p>
+            </header>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="icon">🎬</div>
+                    <div class="feature-content">
+                        <strong>Học ngầm đa nhiệm</strong>
+                        <p>Tự động học Video ngay cả khi ẩn tab, thu nhỏ trình duyệt hoặc khóa màn hình.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">🛡️</div>
+                    <div class="feature-content">
+                        <strong>jQuery Bypass</strong>
+                        <p>Vô hiệu hóa các trình theo dõi jQuery gây dừng video khi rời khỏi tab.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">⚡</div>
+                    <div class="feature-content">
+                        <strong>Đồng bộ PDF tức thì</strong>
+                        <p>Tự động hóa hoàn toàn việc ghi nhận tiến độ tài liệu PDF/DOC chỉ trong vài giây.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">💎</div>
+                    <div class="feature-content">
+                        <strong>Giao diện Liquid Glass</strong>
+                        <p>Bảng điều khiển trực quan, mờ ảo, tự động đảo màu chữ và căn giữa thông minh.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-box">
+                <h2>Cài đặt & Sử dụng</h2>
+                <p style="margin-bottom: 25px; opacity: 0.8; text-align: left; max-width: 450px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+                    1. <b>Kéo</b> nút màu xanh bên dưới thả vào thanh dấu trang (Nếu chưa hiện thanh dấu trang thì nhấn Ctrl+Shift+B để nó hiện lên).<br>
+                    2. <b>Mở</b> trang bài học bất kỳ trên Fuxue (Fu-Learning).<br>
+                    3. <b>Nhấn</b> vào dấu trang vừa lưu để kích hoạt hệ thống.
+                </p>
+                
+                <a class="bookmark-btn" id="dragBtn" title="Kéo tôi lên thanh Bookmark!" href="#">
+                    🛡️ SILENT V4.0.3
+                </a>
+
+                <span class="hint">💡 Phiên bản ổn định cao, tích hợp chống Pause và UI Liquid Glass</span>
+            </div>
+        </div>
+
+        <footer class="footer">
+            Designed by John Alaa 📸🦞<br>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            // Mã nguồn gốc sạch 100% (V3.8 Core + jQuery Bypass + Centered UI)
+            const rawCode = `javascript:(function(){if(window.fxA)return;window.fxA=1;try{const d=EventTarget.prototype,o=d.dispatchEvent,a=d.addEventListener;d.dispatchEvent=function(e){if(e&&['blur','visibilitychange','webkitvisibilitychange','focusout'].includes(e.type))return!1;return o.apply(this,arguments)};d.addEventListener=function(t){if(['blur','focusout','visibilitychange','webkitvisibilitychange'].includes(t))return;return a.apply(this,arguments)};if(window.jQuery&&window.jQuery.fn){const j=window.jQuery,f=j.fn,on=f.on;f.on=function(t){if(typeof t=='string'&&(t.includes('blur')||t.includes('focusout')||t.includes('visibilitychange')))return this;return on.apply(this,arguments)};j(window).off('blur focus focusout visibilitychange');j(document).off('blur focus focusout visibilitychange')}const p=Object.defineProperty,v={get:()=>!0,configurable:!0},h={get:()=>!1,configurable:!0},vs={get:()=>'visible',configurable:!0};p(document,'hasFocus',v);p(document,'hidden',h);p(document,'visibilityState',vs);p(document,'webkitVisibilityState',vs);const vp=HTMLVideoElement.prototype.pause;HTMLVideoElement.prototype.pause=function(){if(!this.ended&&this.readyState>2)return;return vp.apply(this,arguments)};window.onblur=document.onblur=null}catch(e){}const ui=document.createElement('div');ui.style.cssText="position:fixed;bottom:20px;right:20px;z-index:999999;padding:15px;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2);border-radius:18px;color:#fff;font:12px sans-serif;box-shadow:0 8px 32px rgba(0,0,0,.3)";ui.innerHTML='<b style="display:block;text-align:center;border-bottom:1px solid #444;padding-bottom:5px;margin-bottom:5px">🛡️ SILENT V4.0.3</b>Mode: <b id="fm" style="color:#0fc">..</b> | Stat: <b id="fs" style="color:#fc0">Run</b><div style="margin-top:5px;padding-top:5px;border-top:1px solid #444">Less: <i id="fl">N/A</i></div>';document.body.appendChild(ui);const U=(i,t)=>{const e=document.getElementById('f'+i);if(e)e.innerText=t};let lT=-1,fC=0,lI=-1,wC=0;const hD=window.wares&&window.wares.some(w=>['pdf','doc','html'].includes(w.type));U('m',hD?'HYB':'VID');new MutationObserver(()=>{const b=document.querySelector('.layui-layer-btn0,.vjs-close-control');if(b){b.click();U('s','OK')}}).observe(document.body,{childList:!0,subtree:!0});setInterval(()=>{const v=document.querySelector('video'),a=document.querySelector('dd.active');let dD=!1;if(wC>0){wC-=1e3;return}try{if(window.wares&&window.video_index!=null){const c=window.wares[window.video_index];if(c&&['pdf','doc','html'].includes(c.type)){if(c.isComplete!='Y'&&!c._s){const p={'starttime':c.starttime,'endtime':Date.now()+(window.diff_localTime||0),'playtime':c.page||100,'courseid':window.courseId,'wareid':c.wareId,'chapterid':c.chapterId,'completestatus':'Y','page':c.page||1,'username':window.userName,'versionname':'v1','deviceid':window.courseToken};if(window.encrypt&&window.realSendRecord)window.realSendRecord((window.path||'')+'/public/play/addStudyRecordnew?data='+window.encrypt(JSON.stringify(p)),c.wareId,'v1');c._s=1;c.isComplete='Y';if(a)a.innerHTML=a.innerHTML.replace(/\\d+%/,'')+' Done';dD=!0;wC=3e3}else if(c.isComplete=='Y')dD=!0}}}catch(e){}if(v&&v.offsetHeight>5){v.muted=!0;v.style.width=v.style.height='1px';if(v.paused&&!v.ended&&!document.querySelector('.layui-layer-btn0'))v.play().catch(()=>{});if(!v.paused&&!v.ended){if(Math.abs(v.currentTime-lT)<.1){fC++;if(fC>10){fC=0;v.currentTime+=2}}else{fC=0;lT=v.currentTime}}}if(a){const s=a.innerText.split('\\n').map(x=>x.trim()).filter(Boolean),t=s.find(x=>!/^\\d+([.)-]|\\s*\\/\\s*\\d+)?$/.test(x)&&!/(hoàn thành|100%|hoAn thAnh|Finished)/i.test(x))||s.find(x=>x.length>1)||'N/A';U('l',t.substring(0,20))}const f=/(hoàn thành|100%|hoAn thAnh|Finished)/i.test(a?a.innerText:'')||dD;if(v&&v.ended&&!f){v.currentTime=0;v.play().catch(()=>{})}if(((v&&v.ended)||f)&&a){const l=Array.from(document.querySelectorAll('dd')),cI=l.indexOf(a);let nI=null;for(let i=cI+1;i<l.length;i++)if(!/(hoàn thành|100%|hoAn thAnh|Finished)/i.test(l[i].innerText)){nI=l[i];break}if(nI&&lI!=l.indexOf(nI)){lI=l.indexOf(nI);U('s','Next');wC=hD?5e3:2e3;const m=nI.getAttribute('onclick')?.match(/dianji\\((\\d+)/);if(m&&window.dianji)window.dianji(parseInt(m[1]),nI);else nI.click()}else if(!nI&&f)U('s','DONE')}},1e3)})();`;
+            document.getElementById('dragBtn').href = rawCode;
+        })();
+    </script>
+</body>
+</html>
