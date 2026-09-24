@@ -1,5 +1,5 @@
 /**
- * FUXUE SILENT PRO v4.1.2 - 100% Pure Organic Playback (Zero API Spoofing)
+ * FUXUE SILENT PRO v4.1.3 - 100% Pure Organic Playback (Zero API Spoofing)
  * Matches: *://iedu.foxconn.com/*, *://ieduapi.foxconn.com/*
  * Run-At: document_start (world: MAIN)
  * Author: JATech (https://jatechvn.github.io)
@@ -18,7 +18,7 @@
     if (window.fuxueProActive) return;
     window.fuxueProActive = true;
 
-    console.log("%c[FUXUE PRO v4.1.2]%c PURE ORGANIC STEALTH ENGINE (JATech)", "color:#00ff9d;font-weight:bold;background:#111;padding:2px 6px;border-radius:4px;", "color:#38bdf8;");
+    console.log("%c[FUXUE PRO v4.1.3]%c PURE ORGANIC STEALTH ENGINE (JATech)", "color:#00ff9d;font-weight:bold;background:#111;padding:2px 6px;border-radius:4px;", "color:#38bdf8;");
 
     // =========================================================================
     // 0. ACTIVITY LOGGER ENGINE (AUTO-SAVED IN LOCALSTORAGE & EXPIRED AFTER 3 DAYS)
@@ -68,7 +68,7 @@
 
     window.fuxueAddLog = addLog;
     window.fuxueGetLogs = getCleanLogs;
-    addLog('INFO', 'BOOT', 'Khởi động FUXUE PRO v4.1.2 (Organic 1.0x Real-time Stealth & Auto-Replay)');
+    addLog('INFO', 'BOOT', 'Khởi động FUXUE PRO v4.1.3 (Organic 1.0x Real-time Stealth & Auto-Replay)');
 
     // 1. SYSTEM HOOKS (ANTI-BLUR & STEALTH FOCUS)
     try {
@@ -276,7 +276,7 @@
         const h = document.createElement('div');
         h.id = "fuxue-ui-v4";
         h.style.cssText = "padding:16px 18px;background:rgba(255,255,255,0.78);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);color:#0f172a;border:1px solid rgba(255,255,255,0.95);border-radius:24px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;font-size:12px;width:260px;position:fixed;bottom:25px;right:25px;z-index:2147483647;box-shadow:0 20px 50px rgba(0,50,150,0.14),0 0 0 1px rgba(0,102,255,0.12);display:flex;flex-direction:column;gap:8px;pointer-events:auto;transition:all 0.3s ease;";
-        h.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.07);padding-bottom:7px;margin-bottom:2px;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:14px;">🛡️</span><b style="font-size:12.5px;color:#0052cc;font-weight:800;letter-spacing:0.3px;">FUXUE PRO v4.1.2</b></div><span style="font-size:9.5px;font-weight:800;background:rgba(0,102,255,0.1);color:#0066ff;border:1px solid rgba(0,102,255,0.25);padding:2px 7px;border-radius:10px;letter-spacing:0.5px;">ORGANIC 1x</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Chế độ:</span><span id="fx-mode" style="font-weight:700;color:#0066ff;font-size:11.5px;">ORGANIC 1.0X</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Trạng thái:</span><span id="fx-stat" style="font-weight:700;color:#10b981;font-size:11.5px;">Đang phát</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Heartbeat:</span><span id="fx-hb" style="color:#0284c7;font-family:monospace;font-weight:700;font-size:11.5px;">Active 24/7</span></div><div style="margin-top:4px;padding-top:7px;border-top:1px solid rgba(0,0,0,0.07);"><div style="font-size:10px;color:#94a3b8;margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Bài học hiện tại:</div><div id="fx-less" style="font-size:11.5px;line-height:1.4;word-break:break-word;color:#1e293b;font-weight:600;">N/A</div></div><button id="fx-btn-stop" style="margin-top:4px;padding:8px 14px;border:none;border-radius:12px;font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:0.3px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s ease;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;box-shadow:0 4px 14px rgba(220,38,38,0.38);width:100%;"><span id="fx-btn-stop-icon">⏹️</span><span id="fx-btn-stop-text">Dừng tự động</span></button>';
+        h.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.07);padding-bottom:7px;margin-bottom:2px;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:14px;">🛡️</span><b style="font-size:12.5px;color:#0052cc;font-weight:800;letter-spacing:0.3px;">FUXUE PRO v4.1.3</b></div><span style="font-size:9.5px;font-weight:800;background:rgba(0,102,255,0.1);color:#0066ff;border:1px solid rgba(0,102,255,0.25);padding:2px 7px;border-radius:10px;letter-spacing:0.5px;">ORGANIC 1x</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Chế độ:</span><span id="fx-mode" style="font-weight:700;color:#0066ff;font-size:11.5px;">ORGANIC 1.0X</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Trạng thái:</span><span id="fx-stat" style="font-weight:700;color:#10b981;font-size:11.5px;">Đang phát</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Heartbeat:</span><span id="fx-hb" style="color:#0284c7;font-family:monospace;font-weight:700;font-size:11.5px;">Active 24/7</span></div><div style="margin-top:4px;padding-top:7px;border-top:1px solid rgba(0,0,0,0.07);"><div style="font-size:10px;color:#94a3b8;margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Bài học hiện tại:</div><div id="fx-less" style="font-size:11.5px;line-height:1.4;word-break:break-word;color:#1e293b;font-weight:600;">N/A</div></div><button id="fx-btn-stop" style="margin-top:4px;padding:8px 14px;border:none;border-radius:12px;font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:0.3px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s ease;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;box-shadow:0 4px 14px rgba(220,38,38,0.38);width:100%;"><span id="fx-btn-stop-icon">⏹️</span><span id="fx-btn-stop-text">Dừng tự động</span></button>';
         document.body.appendChild(h);
 
         const btnStop = h.querySelector('#fx-btn-stop');

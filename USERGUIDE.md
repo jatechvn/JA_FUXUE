@@ -1,6 +1,6 @@
-# 📖 Hướng Dẫn Sử Dụng FUXUE SILENT PRO v4.1.2
+# 📖 Hướng Dẫn Sử Dụng FUXUE SILENT PRO v4.1.3
 
-Chào mừng bạn đến với **FUXUE SILENT PRO v4.1.2** — Tiện ích mở rộng chuyên dụng cho việc học tập, giải đề thi và hoàn thành khóa học Foxconn E-Learning (`iedu.foxconn.com`).
+Chào mừng bạn đến với **FUXUE SILENT PRO v4.1.3** — Tiện ích mở rộng chuyên dụng cho việc học tập, giải đề thi và hoàn thành khóa học Foxconn E-Learning (`iedu.foxconn.com`).
 
 ---
 
@@ -8,15 +8,15 @@ Chào mừng bạn đến với **FUXUE SILENT PRO v4.1.2** — Tiện ích mở
 
 ### Yêu cầu hệ thống:
 - Trình duyệt nền Chromium: Google Chrome, Microsoft Edge, Cốc Cốc, Brave, Opera.
-- File gói phát hành: `JA_Fuxue_v4.1.2_Chrome_Extension.zip` trong thư mục `dist/`.
+- File gói phát hành: `JA_Fuxue_v4.1.3_Chrome_Extension.zip` trong thư mục `dist/`.
 
 ### Các bước cài đặt:
-1. Giải nén file `JA_Fuxue_v4.1.2_Chrome_Extension.zip` ra thư mục trên máy tính. Bạn sẽ thấy thư mục con tên là `fuxue-silent-pro-v4.1.2`.
+1. Giải nén file `JA_Fuxue_v4.1.3_Chrome_Extension.zip` ra thư mục trên máy tính. Bạn sẽ thấy thư mục con tên là `fuxue-silent-pro-v4.1.3`.
 2. Mở trình duyệt Chrome (hoặc Edge).
 3. Gõ trên thanh địa chỉ: `chrome://extensions/` và nhấn Enter.
 4. Gạt nút **Chế độ dành cho nhà phát triển (Developer mode)** ở góc trên bên phải màn hình sang trạng thái **BẬT (ON)**.
 5. Bấm vào nút **Tải tiện ích đã giải nén (Load unpacked)** ở góc trên bên trái.
-6. Chọn đúng thư mục `fuxue-silent-pro-v4.1.2` vừa giải nén.
+6. Chọn đúng thư mục `fuxue-silent-pro-v4.1.3` vừa giải nén.
 7. Biểu tượng khiên bảo vệ 🛡️ **FUXUE SILENT PRO** sẽ xuất hiện trên thanh công cụ của trình duyệt. Bạn có thể bấm vào biểu tượng ghim để ghim tiện ích ra thanh địa chỉ.
 
 ---

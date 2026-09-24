@@ -1,6 +1,6 @@
 # 🛡️ FUXUE SILENT PRO — Foxconn E-Learning Automation Suite
 
-![Version](https://img.shields.io/badge/version-4.1.2-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/version-4.1.3-blue.svg?style=flat-square)
 ![Manifest](https://img.shields.io/badge/manifest-v3-green.svg?style=flat-square)
 ![Architecture](https://img.shields.io/badge/engine-Pure_Organic_1.0x-orange.svg?style=flat-square)
 ![Platform](https://img.shields.io/badge/platform-Chrome_%7C_Edge_%7C_Cốc_Cốc-purple.svg?style=flat-square)
@@ -38,12 +38,12 @@ Hệ sinh thái tự động hóa học tập, thi cử và hoàn thành khóa h
 ## 🚀 Hướng Dẫn Cài Đặt (Installation)
 
 ### Cách 1: Nạp Extension Unpacked (Khuyên dùng)
-1. Tải hoặc giải nén file gói `JA_Fuxue_v4.1.2_Chrome_Extension.zip` trong thư mục `dist/`.
+1. Tải hoặc giải nén file gói `JA_Fuxue_v4.1.3_Chrome_Extension.zip` trong thư mục `dist/`.
 2. Mở trình duyệt Chromium (Google Chrome, Microsoft Edge, Brave, Cốc Cốc).
 3. Truy cập địa chỉ: `chrome://extensions/` (hoặc `edge://extensions/`).
 4. Bật công tắc **Developer mode (Chế độ cho nhà phát triển)** ở góc trên bên phải.
 5. Bấm vào nút **Load unpacked (Tải tiện ích đã giải nén)**.
-6. Chọn thư mục `fuxue-silent-pro-v4.1.2`.
+6. Chọn thư mục `fuxue-silent-pro-v4.1.3`.
 
 ### Cách 2: Trình cài đặt đồ họa Offline
 1. Mở trực tiếp file `FUXUE_V4_PRO_INSTALLER.html` trong trình duyệt.
@@ -67,8 +67,8 @@ Hệ sinh thái tự động hóa học tập, thi cử và hoàn thành khóa h
 ├── FUXUE_V4_PRO_INSTALLER.html        # Trang giao diện Web cài đặt & xuất gói offline
 ├── index.html                         # Trang quản trị / danh mục dự án JA System
 ├── dist/                              # Thư mục đóng gói phát hành (xem gitpush)
-│   ├── fuxue-silent-pro-v4.1.2/       # Unpacked ready-to-run extension
-│   ├── JA_Fuxue_v4.1.2_Chrome_Extension.zip
+│   ├── fuxue-silent-pro-v4.1.3/       # Unpacked ready-to-run extension
+│   ├── JA_Fuxue_v4.1.3_Chrome_Extension.zip
 │   └── SHA256SUMS.txt
 ├── ABOUT.txt                          # Thẻ thông tin metadata dự án
 ├── CHANGELOG.md                       # Lịch sử phiên bản
@@ -79,13 +79,13 @@ Hệ sinh thái tự động hóa học tập, thi cử và hoàn thành khóa h
 
 ---
 
-## 🔄 Thay Đổi Gần Đây (v4.1.2)
+## 🔄 Thay Đổi Gần Đây (v4.1.3)
 
+- **Sửa lỗi xung đột PDF (.pdflogo):** Xử lý triệt để lỗi thẻ ẩn `.pdflogo` của Foxconn khiến video bị nhận diện nhầm là PDF và dừng phát tự động.
+- **Tăng cường đồng bộ Video.js:** Tự động gọi `window.videoPlayer.play()` khi phục hồi phát video.
 - **Master Stop/Resume:** Bổ sung nút dừng/chạy tự động hóa trên HUD và Extension Popup.
 - **Sửa lỗi PDF tiến độ N-1:** Hoàn thiện 100% tài liệu PDF/DOC thay vì dừng ở 93%.
 - **Tối ưu hóa Smart Exam Solver:** Tự động giải đề 2 giai đoạn với cơ chế bóc tách `Correct Answer` chuẩn xác 100%.
-- **Chống click trùng lặp:** Loại bỏ hiện tượng double-click checkbox trên đề thi nhiều đáp án.
-- **Xử lý an toàn "No Exam":** Tránh vòng lặp redirect khi khóa học không có đề thi.
 
 ---
 

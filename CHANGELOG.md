@@ -2,6 +2,18 @@
 
 Tất cả các thay đổi quan trọng của dự án FUXUE SILENT PRO được ghi lại chi tiết tại đây theo chuẩn Semantic Versioning.
 
+## [v4.1.3] - 2026-09-24
+
+### 🐛 Sửa lỗi & Tối ưu hóa (Hotfix)
+- **Khắc phục xung đột bộ chọn PDF (.pdflogo DOM template):**
+  - Xử lý triệt để lỗi thẻ ẩn `.pdflogo` nằm trong `<div class="pdfwarp dpn" style="display: none;">` của template Foxconn khiến extension nhận diện nhầm video là tài liệu PDF và bỏ qua luồng tự động phát video (`else if (video)`).
+  - Chuẩn hóa bộ lọc: Ưu tiên thuộc tính `currentWare.type` (`mp4`/`flv` vs `pdf`/`doc`) từ máy chủ Foxconn; chỉ kích hoạt PDF mode khi đối tượng bài học thực sự là PDF hoặc container PDF hiển thị thực tế (`offsetParent !== null` và không có class `.dpn`).
+- **Tăng cường đồng bộ hóa Player (`window.videoPlayer.play()`):**
+  - Bổ sung lệnh đánh thức trực tiếp đối tượng Video.js instance trong `forcePlayVideo`, đảm bảo video luôn phát trơn tru và tự phục hồi ngay lập tức nếu bị ngắt quãng.
+
+### 📦 Phát hành
+- Đồng bộ version 4.1.3 trong `manifest.json`, `content.js`, `inject.js`, `popup.html`, `auto_study_foxconn_v4.0.3_full.js`, `ABOUT.txt`, `README.md`, `USERGUIDE.md`, `RELEASE_NOTES.md`.
+
 ---
 
 ## [v4.1.2] - 2026-09-24
