@@ -2,6 +2,22 @@
 
 Tất cả các thay đổi quan trọng của dự án FUXUE SILENT PRO được ghi lại chi tiết tại đây theo chuẩn Semantic Versioning.
 
+## [v4.1.5] - 2026-09-25
+
+### 🚀 Nâng cấp & Tính năng mới
+- **Chống mở tab trùng lặp & Bảo vệ trang chủ (Deduplication Guard & Homepage Protection):**
+  - Loại trừ hoàn toàn trang chủ (`/home/homepage`, root, `/login`, `/index`) khỏi bộ nhận diện danh sách bài học `isListPage()`, đảm bảo người dùng truy cập trang chủ không bao giờ bị cướp trang hoặc tự động nhảy bài.
+  - Tích hợp cơ chế phát hiện tab trùng lặp đa tầng thời gian thực qua Background Service Worker (`chrome.tabs.onUpdated` và sự kiện `CHECK_DUPLICATE_PLAY_TAB`): Tự động phát hiện khi có nhiều tab cùng mở một khóa học (`courseId`), giữ lại tab gốc đang học và đóng ngay lập tức các tab trùng lặp thừa.
+  - Guard kiểm tra tab đang học ngầm (`HAS_ACTIVE_STUDY_TAB`): Trang danh mục / tìm kiếm không bao giờ tự ý mở thêm tab nếu đã có một tab khóa học đang chạy.
+- **Tự động đóng tab bài đã hoàn tất (Auto-Close Completed Tabs):**
+  - Khi một khóa học đã hoàn tất và có dữ liệu trong "Exam record：" đạt 100 điểm (hoặc $\ge 80$), tiện ích tự động đóng tab đã học sau 2.5 giây (`COURSE_COMPLETED_CLOSE_TAB` qua `chrome.tabs.remove`) và chuyển sang khóa tiếp theo nếu bật Auto-Farm.
+  - Đồng bộ xử lý tự động đóng tab sau 2.5s khi nộp bài thi đạt 100/100, khi thi qua môn, hoặc khi khóa học hoàn thành 100% không có đề thi (No Exam).
+
+### 📦 Phát hành
+- Đồng bộ version 4.1.5 trong `manifest.json`, `content.js`, `inject.js`, `bridge.js`, `background.js`, `popup.html`, `auto_study_foxconn_v4.0.3_full.js`, `ABOUT.txt`, `README.md`, `USERGUIDE.md`, `RELEASE_NOTES.md`.
+
+---
+
 ## [v4.1.4] - 2026-09-25
 
 ### 🚀 Nâng cấp & Tính năng mới (Idea 1 - Auto-Farm Next Course & Smart Credit Filter)

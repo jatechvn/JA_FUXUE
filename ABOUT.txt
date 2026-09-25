@@ -2,7 +2,7 @@
                     FUXUE SILENT PRO - FOXCONN E-LEARNING
 ================================================================================
 Application  : FUXUE SILENT PRO
-Version      : 4.1.4
+Version      : 4.1.5
 Author       : JATech (https://jatechvn.github.io)
 Platform     : Chromium Extension (Chrome / Edge / Cốc Cốc / Brave / Opera) & UserScript
 Technology   : JavaScript (ES6+), Chrome Extension Manifest V3, Web Audio API
@@ -17,7 +17,9 @@ kiểm tra trực tuyến trên hệ thống iedu.foxconn.com. Hệ thống áp 
 vận hành 100% Pure Organic Playback: không can thiệp giả lập API addStudyRecordnew,
 tuân thủ 100% nhịp tim tự nhiên và luồng dữ liệu chuẩn từ server Foxconn.
 
-TÍNH NĂNG NỔI BẬT TRÊN BẢN v4.1.4:
+TÍNH NĂNG NỔI BẬT TRÊN BẢN v4.1.5:
+- Deduplication Guard: Chặn hoàn toàn việc cướp trang chủ, tự động phát hiện và đóng các tab học trùng lặp qua Background Service Worker.
+- Auto-Close Completed Tabs: Tự động đóng tab bài đã học hoàn tất (Exam record đạt 100 điểm) sau 2.5s và chuyển sang khóa tiếp theo.
 - Auto-Farm Next Course: Tự động học liên tục cả danh sách khóa học qua đêm rảnh tay.
 - Smart Credit Filter & Auto-Close: Bỏ qua bài 0 điểm tín chỉ (Credit Score: 0) không có bài thi, tự động đóng tab sau 2.5 giây.
 - Background Service Worker: Quản lý đóng tab tự động và điều phối khóa học chuẩn Manifest V3.

@@ -1,6 +1,6 @@
-# 📖 Hướng Dẫn Sử Dụng FUXUE SILENT PRO v4.1.4
+# 📖 Hướng Dẫn Sử Dụng FUXUE SILENT PRO v4.1.5
 
-Chào mừng bạn đến với **FUXUE SILENT PRO v4.1.4** — Tiện ích mở rộng chuyên dụng cho việc học tập, giải đề thi và hoàn thành khóa học Foxconn E-Learning (`iedu.foxconn.com`).
+Chào mừng bạn đến với **FUXUE SILENT PRO v4.1.5** — Tiện ích mở rộng chuyên dụng cho việc học tập, giải đề thi và hoàn thành khóa học Foxconn E-Learning (`iedu.foxconn.com`).
 
 ---
 
@@ -104,7 +104,28 @@ Phiên bản **v4.1.4** tích hợp hệ thống Auto-Farm tự động hóa t�
 
 ---
 
-## 6. 📑 Quản Lý Nhật Ký, Bộ Nhớ Đáp Án & Cấu Hình Popup
+## 6. 🛡️ Chống Mở Tab Trùng Lặp & Tự Động Đóng Tab Đã Học Hoàn Thành (v4.1.5)
+
+### Chống cướp trang chủ (Homepage Protection):
+- Tiện ích loại trừ hoàn toàn các trang chủ (`/home/homepage`, `/`, `/login`, `/index`) khỏi bộ quét tự động học. Bạn hoàn toàn có thể mở trang chủ để tìm kiếm, làm việc hoặc đọc tin tức mà không bao giờ bị tiện ích tự ý cướp trang hoặc chuyển hướng bài học.
+
+### Chống mở tab trùng lặp (Deduplication Guard):
+- Background Service Worker (`background.js`) giám sát thời gian thực mọi tab Foxconn mở ra:
+  - Nếu bạn vô tình hoặc tiện ích mở nhiều tab cùng một khóa học (`courseId`), hệ thống sẽ phát hiện ngay lập tức.
+  - Hệ thống tự động **giữ lại tab gốc** đang học và **đóng ngay lập tức các tab trùng lặp thừa**.
+  - Khi đang ở trang danh mục / tìm kiếm, nếu phát hiện đang có một tab học chạy ngầm, tiện ích sẽ hiển thị **ĐANG CÓ TAB HỌC ĐANG CHẠY ⏳** và không mở thêm tab mới.
+
+### Tự động đóng tab bài đã học hoàn tất (Auto-Close Completed Tabs):
+- Khi một khóa học đã hoàn tất và có dữ liệu trong mục **Exam record：** đạt 100 điểm (hoặc $\ge 80$), tiện ích sẽ:
+  1. Hiển thị thông báo trên HUD: **HOÀN THÀNH (100 Đ) - ĐÓNG TAB 🏆**.
+  2. Tạm dừng phát video để tiết kiệm tài nguyên.
+  3. Đếm ngược 2.5 giây và gửi lệnh tới Background Service Worker để tự động đóng tab đã học.
+  4. Nếu bật Auto-Farm, tiện ích tự động mở khóa học có điểm kế tiếp trong hàng đợi.
+- Áp dụng tương tự khi bạn vừa nộp bài thi đạt 100/100, khi thi qua môn, hoặc khi khóa học hoàn thành 100% không có bài thi.
+
+---
+
+## 7. 📑 Quản Lý Nhật Ký, Bộ Nhớ Đáp Án & Cấu Hình Popup
 
 Bấm vào biểu tượng extension trên thanh công cụ để mở Popup:
 1. **🎛️ Nút Điều Khiển Master:** Bấm **DỪNG TỰ ĐỘNG** / **TIẾP TỤC HỌC** để kiểm soát toàn bộ vòng lặp.
@@ -116,7 +137,7 @@ Bấm vào biểu tượng extension trên thanh công cụ để mở Popup:
 
 ---
 
-## 7. ❓ Câu Hỏi Thường Gặp (Troubleshooting)
+## 8. ❓ Câu Hỏi Thường Gặp (Troubleshooting)
 
 **Q1: Video bị tạm dừng khi tôi chuyển sang tab khác?**
 > FUXUE tự động khóa các sự kiện `blur` và `visibilitychange`. Video sẽ vẫn chạy mượt mà ngay cả khi bạn thu nhỏ cửa sổ trình duyệt nhờ công nghệ Audio Heartbeat 24/7.

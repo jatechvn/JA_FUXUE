@@ -1,5 +1,5 @@
 /**
- * FUXUE SILENT PRO v4.1.4 - 100% Pure Organic Playback (Zero API Spoofing)
+ * FUXUE SILENT PRO v4.1.5 - 100% Pure Organic Playback (Zero API Spoofing)
  * Matches: *://iedu.foxconn.com/*, *://ieduapi.foxconn.com/*
  * Run-At: document_start (world: MAIN)
  * Author: JATech (https://jatechvn.github.io)
@@ -361,7 +361,8 @@
 
     const isListPage = () => {
         const p = location.pathname.toLowerCase();
-        return p.includes('/category/show') || p.includes('/home/search') || p.includes('/user/studytask') || p.includes('/home/homepage');
+        if (p.includes('/home/homepage')) return false; // Tuyệt đối không cướp trang chủ của người dùng
+        return p.includes('/category/show') || p.includes('/home/search') || p.includes('/user/studytask');
     };
 
     // Nhận diện điểm tín chỉ chuẩn xác đa ngôn ngữ:
@@ -508,6 +509,58 @@
         } catch(e) {}
     };
     window._fxRequestCloseTab = requestCloseTab;
+
+    // Tự động đóng tab khóa học đã hoàn tất (Exam record đạt 100 điểm)
+    const requestCloseCompletedCourseTab = (opts = {}) => {
+        const cid = opts.courseId || getCurrentCourseId();
+        try {
+            window.postMessage({
+                type: 'FUXUE_COURSE_COMPLETED',
+                courseId: cid,
+                openNextUrl: opts.openNextUrl || null,
+                reason: opts.reason || 'Course finished (Exam record 100)'
+            }, '*');
+        } catch(e) {}
+        try {
+            window.close();
+        } catch(e) {}
+    };
+    window._fxRequestCloseCompletedCourseTab = requestCloseCompletedCourseTab;
+
+    // Giao tiếp với bridge.js và background.js
+    window._hasActiveStudyTab = false;
+    window.addEventListener('message', (event) => {
+        if (event.source !== window || !event.data || !event.data.type) return;
+        if (event.data.type === 'FUXUE_CHECK_DUPLICATE_RESP') {
+            if (event.data.isDuplicate) {
+                console.log('[FUXUE] ⚠️ Tab này là tab trùng lặp, đang được background tự động đóng...');
+                updateUI('stat', 'TAB TRÙNG LẶP - ĐANG ĐÓNG ⚠️');
+            }
+        } else if (event.data.type === 'FUXUE_QUERY_ACTIVE_STUDY_RESP') {
+            window._hasActiveStudyTab = Boolean(event.data.hasActiveStudyTab);
+        }
+    });
+
+    const checkDuplicatePlayTab = () => {
+        const cid = getCurrentCourseId();
+        if (!cid) return;
+        try {
+            window.postMessage({
+                type: 'FUXUE_CHECK_DUPLICATE',
+                courseId: cid
+            }, '*');
+        } catch(e) {}
+    };
+    window._fxCheckDuplicatePlayTab = checkDuplicatePlayTab;
+
+    const queryActiveStudyTab = () => {
+        try {
+            window.postMessage({
+                type: 'FUXUE_QUERY_ACTIVE_STUDY'
+            }, '*');
+        } catch(e) {}
+    };
+    window._fxQueryActiveStudyTab = queryActiveStudyTab;
 
     const scanListPageCourses = () => {
         try {
@@ -1168,14 +1221,23 @@
             const passScore = passMatch ? parseInt(passMatch[1], 10) : 80;
 
             if (currentScore >= 100) {
-                updateUI('stat', `ĐẠT ${currentScore}/100 ĐIỂM! 🎉`);
+                updateUI('stat', `ĐẠT ${currentScore}/100 ĐIỂM! - ĐÓNG TAB 🎉`);
                 if (!window._loggedExamPass) {
                     window._loggedExamPass = true;
-                    addCompletedCourse(getCurrentCourseId());
-                    addLog('SUCCESS', 'EXAM_FINISH', `🎉 XUẤT SẮC: Bạn đã đạt điểm tuyệt đối 100/100! Khóa học đã hoàn thành trọn vẹn.`);
-                    if (isAutoFarmEnabled() && !isAutoStopped()) {
-                        advanceToNextCourse('Thi đạt điểm tuyệt đối 100/100');
+                    const cid = getCurrentCourseId();
+                    addCompletedCourse(cid);
+                    addLog('SUCCESS', 'EXAM_FINISH', `🎉 XUẤT SẮC: Bạn đã đạt điểm tuyệt đối 100/100! Khóa học đã hoàn thành trọn vẹn. Tự động đóng tab sau 2.5s...`);
+                    const next = (isAutoFarmEnabled() && !isAutoStopped()) ? getNextEligibleCourseInQueue(cid) : null;
+                    if (next && next.url) {
+                        addLog('INFO', 'AUTO_FARM', `Chuẩn bị chuyển sang: ${next.title} (ID: ${next.courseId})`);
                     }
+                    setTimeout(() => {
+                        requestCloseCompletedCourseTab({
+                            courseId: cid,
+                            openNextUrl: next ? next.url : null,
+                            reason: 'Thi đạt điểm tuyệt đối 100/100 -> Đóng tab hoàn thành'
+                        });
+                    }, 2500);
                 }
             } else if (currentScore < passScore) {
                 updateUI('stat', `Điểm: ${currentScore}/${passScore} (Thi lại)`);
@@ -1200,14 +1262,23 @@
                     }, 2500);
                 }
             } else {
-                updateUI('stat', `ĐÃ PASS: ${currentScore} ĐIỂM! ✅`);
+                updateUI('stat', `ĐÃ PASS: ${currentScore} ĐIỂM! - ĐÓNG TAB ✅`);
                 if (!window._loggedExamPass) {
                     window._loggedExamPass = true;
-                    addCompletedCourse(getCurrentCourseId());
-                    addLog('SUCCESS', 'EXAM_PASS', `✅ Chúc mừng! Bạn đã đạt ${currentScore} điểm (Điểm chuẩn qua: ${passScore}). Khóa học đã hoàn thành!`);
-                    if (isAutoFarmEnabled() && !isAutoStopped()) {
-                        advanceToNextCourse(`Thi qua môn (${currentScore} điểm)`);
+                    const cid = getCurrentCourseId();
+                    addCompletedCourse(cid);
+                    addLog('SUCCESS', 'EXAM_PASS', `✅ Chúc mừng! Bạn đã đạt ${currentScore} điểm (Điểm chuẩn qua: ${passScore}). Khóa học đã hoàn thành! Tự động đóng tab sau 2.5s...`);
+                    const next = (isAutoFarmEnabled() && !isAutoStopped()) ? getNextEligibleCourseInQueue(cid) : null;
+                    if (next && next.url) {
+                        addLog('INFO', 'AUTO_FARM', `Chuẩn bị chuyển sang: ${next.title} (ID: ${next.courseId})`);
                     }
+                    setTimeout(() => {
+                        requestCloseCompletedCourseTab({
+                            courseId: cid,
+                            openNextUrl: next ? next.url : null,
+                            reason: `Thi qua môn (${currentScore} điểm) -> Đóng tab hoàn thành`
+                        });
+                    }, 2500);
                 }
             }
         }
@@ -1275,19 +1346,34 @@
 
         // 1. XỬ LÝ TRANG DANH MỤC / TÌM KIẾM / NHIỆM VỤ HỌC TẬP (LIST PAGE AUTO-FARM)
         if (isListPage()) {
+            queryActiveStudyTab();
             const q = scanListPageCourses();
             const completed = getCompletedCourses();
             const skipped = getSkippedCourses();
             const pending = q.filter(c => !completed.includes(String(c.courseId)) && !skipped.includes(String(c.courseId)));
 
             updateUI('mode', 'AUTO-FARM');
-            updateUI('stat', `Tìm thấy ${q.length} khóa (${pending.length} chưa học)`);
             updateUI('less', `Lọc bài có điểm (> 0): ${isFilterCreditsEnabled() ? 'BẬT ✅' : 'TẮT'}`);
+
+            if (window._hasActiveStudyTab) {
+                updateUI('stat', 'ĐANG CÓ TAB HỌC ĐANG CHẠY ⏳');
+                return;
+            }
+
+            updateUI('stat', `Tìm thấy ${q.length} khóa (${pending.length} chưa học)`);
 
             if (isAutoFarmEnabled() && !isAutoStopped() && !window._jaFarmNavigating && pending.length > 0) {
                 advanceToNextCourse('Auto-Farm bắt đầu từ danh sách');
             }
             return;
+        }
+
+        // KIỂM TRA TRÙNG LẶP TAB TRÊN TRANG BÀI HỌC (DEDUPLICATION GUARD)
+        if (isPlayPage()) {
+            if (!window._jaDuplicateChecked) {
+                window._jaDuplicateChecked = true;
+                checkDuplicatePlayTab();
+            }
         }
 
         // 2. XỬ LÝ BỘ LỌC TÍN CHỈ TRÊN TRANG BÀI HỌC (CREDIT SCORE FILTER)
@@ -1343,15 +1429,28 @@
                 window._jaExamAlreadyPassed = true;
                 window._examNavigated = true; // Khóa chặt không cho kích hoạt thi lại
 
-                if (!window._loggedExamRecordPass) {
-                    window._loggedExamRecordPass = true;
-                    addLog('SUCCESS', 'EXAM_RECORD', `🏆 KHÓA HỌC ĐÃ TỪNG THI ĐẠT: Phát hiện trong Exam record (${examRecord.reason}). Điểm: ${examRecord.score}. Bỏ qua không thi lại!`);
-                    updateUI('stat', `ĐÃ THI ĐẠT (${examRecord.score} Đ) 🏆`);
+                if (!window._courseCompletedClosed) {
+                    window._courseCompletedClosed = true;
+                    addLog('SUCCESS', 'EXAM_RECORD', `🏆 KHÓA HỌC ĐÃ TỪNG THI ĐẠT: Phát hiện trong Exam record (${examRecord.reason}). Điểm: ${examRecord.score || 100}. Tự động đóng tab sau 2.5s...`);
+                    updateUI('stat', `HOÀN THÀNH (${examRecord.score || 100} Đ) - ĐÓNG TAB 🏆`);
 
-                    if (isAutoFarmEnabled() && !isAutoStopped()) {
-                        advanceToNextCourse(`Khóa học đã thi đạt trước đó (${examRecord.reason})`);
+                    const v = document.querySelector('video');
+                    if (v && !v.paused) try { v.pause(); } catch(e) {}
+
+                    const next = (isAutoFarmEnabled() && !isAutoStopped()) ? getNextEligibleCourseInQueue(cid) : null;
+                    if (next && next.url) {
+                        addLog('INFO', 'AUTO_FARM', `Chuẩn bị chuyển sang khóa tiếp theo: ${next.title} (ID: ${next.courseId})`);
                     }
+
+                    setTimeout(() => {
+                        requestCloseCompletedCourseTab({
+                            courseId: cid,
+                            openNextUrl: next ? next.url : null,
+                            reason: `Khóa học đã thi đạt (${examRecord.score || 100} điểm) trong Exam record -> Đóng tab hoàn thành`
+                        });
+                    }, 2500);
                 }
+                return;
             }
         }
 
@@ -1632,13 +1731,21 @@
                     const cid = getCurrentCourseId();
                     if (cid) addCompletedCourse(cid);
                     window._examNavigated = true;
-                    updateUI('stat', `ĐÃ THI ĐẠT (${examRecord.score || 100} Đ) 🏆`);
-                    if (!window._loggedExamRecordPass) {
-                        window._loggedExamRecordPass = true;
-                        addLog('SUCCESS', 'EXAM_RECORD', `🏆 BỎ QUA THI LẠI: Khóa học đã từng thi đạt (${examRecord.reason || 'Đạt điểm'}).`);
-                    }
-                    if (isAutoFarmEnabled() && !isAutoStopped()) {
-                        advanceToNextCourse(`Khóa học đã thi đạt (${examRecord.reason || 'Điểm đạt'})`);
+                    updateUI('stat', `ĐÃ THI ĐẠT (${examRecord.score || 100} Đ) - ĐÓNG TAB 🏆`);
+                    if (!window._courseCompletedClosed) {
+                        window._courseCompletedClosed = true;
+                        addLog('SUCCESS', 'EXAM_RECORD', `🏆 BỎ QUA THI LẠI: Khóa học đã từng thi đạt (${examRecord.reason || 'Đạt điểm'}). Tự động đóng tab sau 2.5s...`);
+                        const next = (isAutoFarmEnabled() && !isAutoStopped()) ? getNextEligibleCourseInQueue(cid) : null;
+                        if (next && next.url) {
+                            addLog('INFO', 'AUTO_FARM', `Chuẩn bị chuyển sang: ${next.title} (ID: ${next.courseId})`);
+                        }
+                        setTimeout(() => {
+                            requestCloseCompletedCourseTab({
+                                courseId: cid,
+                                openNextUrl: next ? next.url : null,
+                                reason: `Khóa học đã thi đạt (${examRecord.score || 100} điểm) -> Đóng tab hoàn thành`
+                            });
+                        }, 2500);
                     }
                     return;
                 }
@@ -1669,24 +1776,38 @@
                                 try { window.gotoExam(); } catch(e) {}
                             }
 
-                            // Kiểm tra nếu hệ thống báo "No Exam" thì dừng lại và giữ nguyên màn hình hoàn thành
+                            // Kiểm tra nếu hệ thống báo "No Exam" thì dừng lại và tự động đóng tab hoàn thành
                             setTimeout(() => {
                                 const layerText = (document.querySelector('.layui-layer, .layui-layer-dialog')?.innerText || '').toLowerCase();
                                 if (layerText.includes('no exam') || layerText.includes('không có') || layerText.includes('无考试')) {
-                                    updateUI('stat', 'HOÀN THÀNH TẤT CẢ! 🎉');
-                                    addCompletedCourse(getCurrentCourseId());
-                                    addLog('SUCCESS', 'FINISH', 'Khóa học không có đề thi (No Exam). Khóa học đã hoàn thành 100%!');
-                                    if (isAutoFarmEnabled() && !isAutoStopped()) {
-                                        advanceToNextCourse('Hoàn thành khóa học (Không có đề thi)');
-                                    }
+                                    updateUI('stat', 'HOÀN THÀNH - ĐÓNG TAB 🎉');
+                                    const cid = getCurrentCourseId();
+                                    addCompletedCourse(cid);
+                                    addLog('SUCCESS', 'FINISH', 'Khóa học không có đề thi (No Exam). Khóa học đã hoàn thành 100%! Tự động đóng tab sau 2.5s...');
+                                    const next = (isAutoFarmEnabled() && !isAutoStopped()) ? getNextEligibleCourseInQueue(cid) : null;
+                                    setTimeout(() => {
+                                        requestCloseCompletedCourseTab({
+                                            courseId: cid,
+                                            openNextUrl: next ? next.url : null,
+                                            reason: 'Khóa học hoàn thành 100% (No Exam)'
+                                        });
+                                    }, 2500);
                                 }
                             }, 1200);
                         }, 500);
                     } else {
-                        addCompletedCourse(getCurrentCourseId());
-                        if (isAutoFarmEnabled() && !isAutoStopped()) {
-                            advanceToNextCourse('Hoàn thành khóa học (Không có đề thi)');
-                        }
+                        const cid = getCurrentCourseId();
+                        addCompletedCourse(cid);
+                        updateUI('stat', 'HOÀN THÀNH - ĐÓNG TAB 🎉');
+                        addLog('SUCCESS', 'FINISH', 'Khóa học không có bài thi. Hoàn thành 100%! Tự động đóng tab sau 2.5s...');
+                        const next = (isAutoFarmEnabled() && !isAutoStopped()) ? getNextEligibleCourseInQueue(cid) : null;
+                        setTimeout(() => {
+                            requestCloseCompletedCourseTab({
+                                courseId: cid,
+                                openNextUrl: next ? next.url : null,
+                                reason: 'Khóa học hoàn thành 100% (Không có bài thi)'
+                            });
+                        }, 2500);
                     }
                 }
             }
