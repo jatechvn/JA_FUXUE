@@ -128,6 +128,91 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     updateExamStatusFromTab();
 
+    // 2. Auto-Farm & Credit Filter Controllers
+    const chkAutoFarm = document.getElementById('chk-autofarm');
+    const chkFilterCredits = document.getElementById('chk-filter-credits');
+    const badgeCreditFilter = document.getElementById('popup-credit-filter');
+
+    const updateFarmTogglesFromTab = () => {
+        if (chrome && chrome.tabs) {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs[0] && tabs[0].id) {
+                    chrome.scripting ? chrome.scripting.executeScript({
+                        target: { tabId: tabs[0].id },
+                        func: () => {
+                            return {
+                                autoFarm: localStorage.getItem('ja_fuxue_autofarm') === 'true',
+                                filterCredits: localStorage.getItem('ja_fuxue_filter_credits') !== 'false'
+                            };
+                        }
+                    }, (res) => {
+                        if (res && res[0] && res[0].result) {
+                            const { autoFarm, filterCredits } = res[0].result;
+                            if (chkAutoFarm) chkAutoFarm.checked = autoFarm;
+                            if (chkFilterCredits) chkFilterCredits.checked = filterCredits;
+                            if (badgeCreditFilter) {
+                                badgeCreditFilter.innerText = filterCredits ? 'Chỉ học bài có điểm (> 0)' : 'Học tất cả (kể cả 0đ)';
+                            }
+                        }
+                    }) : null;
+                }
+            });
+        }
+    };
+    updateFarmTogglesFromTab();
+
+    if (chkAutoFarm) {
+        chkAutoFarm.addEventListener('change', () => {
+            const isChecked = chkAutoFarm.checked;
+            if (chrome && chrome.tabs) {
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                    if (tabs[0] && tabs[0].id) {
+                        chrome.scripting ? chrome.scripting.executeScript({
+                            target: { tabId: tabs[0].id },
+                            args: [isChecked],
+                            func: (checked) => {
+                                if (typeof window._fxSetAutoFarm === 'function') {
+                                    window._fxSetAutoFarm(checked);
+                                } else {
+                                    localStorage.setItem('ja_fuxue_autofarm', String(checked));
+                                    if (typeof window._fxUpdateAutoFarmUI === 'function') {
+                                        window._fxUpdateAutoFarmUI();
+                                    }
+                                }
+                            }
+                        }) : null;
+                    }
+                });
+            }
+        });
+    }
+
+    if (chkFilterCredits) {
+        chkFilterCredits.addEventListener('change', () => {
+            const isChecked = chkFilterCredits.checked;
+            if (badgeCreditFilter) {
+                badgeCreditFilter.innerText = isChecked ? 'Chỉ học bài có điểm (> 0)' : 'Học tất cả (kể cả 0đ)';
+            }
+            if (chrome && chrome.tabs) {
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                    if (tabs[0] && tabs[0].id) {
+                        chrome.scripting ? chrome.scripting.executeScript({
+                            target: { tabId: tabs[0].id },
+                            args: [isChecked],
+                            func: (checked) => {
+                                if (typeof window._fxSetFilterCredits === 'function') {
+                                    window._fxSetFilterCredits(checked);
+                                } else {
+                                    localStorage.setItem('ja_fuxue_filter_credits', String(checked));
+                                }
+                            }
+                        }) : null;
+                    }
+                });
+            }
+        });
+    }
+
     // 3. Log Viewer Drawer
     const renderLogs = (logs) => {
         currentLogs = logs || [];

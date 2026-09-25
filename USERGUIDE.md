@@ -1,6 +1,6 @@
-# 📖 Hướng Dẫn Sử Dụng FUXUE SILENT PRO v4.1.3
+# 📖 Hướng Dẫn Sử Dụng FUXUE SILENT PRO v4.1.4
 
-Chào mừng bạn đến với **FUXUE SILENT PRO v4.1.3** — Tiện ích mở rộng chuyên dụng cho việc học tập, giải đề thi và hoàn thành khóa học Foxconn E-Learning (`iedu.foxconn.com`).
+Chào mừng bạn đến với **FUXUE SILENT PRO v4.1.4** — Tiện ích mở rộng chuyên dụng cho việc học tập, giải đề thi và hoàn thành khóa học Foxconn E-Learning (`iedu.foxconn.com`).
 
 ---
 
@@ -8,15 +8,15 @@ Chào mừng bạn đến với **FUXUE SILENT PRO v4.1.3** — Tiện ích mở
 
 ### Yêu cầu hệ thống:
 - Trình duyệt nền Chromium: Google Chrome, Microsoft Edge, Cốc Cốc, Brave, Opera.
-- File gói phát hành: `JA_Fuxue_v4.1.3_Chrome_Extension.zip` trong thư mục `dist/`.
+- Thư mục cài đặt: `fuxue-silent-pro-v4.0.3` hoặc file đóng gói trong thư mục `dist/`.
 
 ### Các bước cài đặt:
-1. Giải nén file `JA_Fuxue_v4.1.3_Chrome_Extension.zip` ra thư mục trên máy tính. Bạn sẽ thấy thư mục con tên là `fuxue-silent-pro-v4.1.3`.
+1. Tải về thư mục dự án `fuxue-silent-pro-v4.0.3`.
 2. Mở trình duyệt Chrome (hoặc Edge).
 3. Gõ trên thanh địa chỉ: `chrome://extensions/` và nhấn Enter.
 4. Gạt nút **Chế độ dành cho nhà phát triển (Developer mode)** ở góc trên bên phải màn hình sang trạng thái **BẬT (ON)**.
 5. Bấm vào nút **Tải tiện ích đã giải nén (Load unpacked)** ở góc trên bên trái.
-6. Chọn đúng thư mục `fuxue-silent-pro-v4.1.3` vừa giải nén.
+6. Chọn thư mục `fuxue-silent-pro-v4.0.3`.
 7. Biểu tượng khiên bảo vệ 🛡️ **FUXUE SILENT PRO** sẽ xuất hiện trên thanh công cụ của trình duyệt. Bạn có thể bấm vào biểu tượng ghim để ghim tiện ích ra thanh địa chỉ.
 
 ---
@@ -66,24 +66,66 @@ FUXUE v4.1.2 áp dụng giải thuật thi thông minh 2 giai đoạn:
 - Các ô đáp án sẽ tự động chuyển màu xanh trên Answer Card.
 - Tự động nộp bài và bạn sẽ đạt số điểm tuyệt đối **100/100**!
 
+### Giai đoạn 3: Nhận diện Lịch sử thi & Chống thi lặp lại (Exam Record Smart Check)
+- Khi mở một khóa học, FUXUE tự động kích hoạt truy vấn lịch sử thi (`loadExamRecordList()` trong tab **Exam record** `#ksjl`).
+- Hệ thống tự động phân tích:
+  - Chỉ số **Course Credit**: `Is Get: Yes` (Đã nhận tín chỉ) / `Valid or not: Yes`.
+  - Bảng **Exam record：**: Các lần thi trước với `Examination Score >= 80` và `Is Pass: Yes` (hoặc `及格: 是`).
+- **Nếu phát hiện khóa học đã từng thi đạt:**
+  - FUXUE hiển thị huy chương **`ĐÃ THI ĐẠT (100 Đ) 🏆`** trên HUD.
+  - Ghi nhận hoàn tất khóa học vào bộ nhớ `ja_fuxue_completed_courses`.
+  - Khóa chặt không cho phép gọi hàm mở đề thi (`examUI()` / `examLink`).
+  - Tự động chuyển thẳng sang bài học tiếp theo trong hàng đợi nếu Auto-Farm đang bật, triệt tiêu hoàn toàn lỗi thi đi thi lại một đề đã có điểm!
+
 ---
 
-## 5. 📑 Quản Lý Nhật Ký & Bộ Nhớ Đáp Án
+## 5. 🚜 Tự Động Cày Danh Sách Khóa Học (Auto-Farm Next Course) & Bộ Lọc Tín Chỉ (Smart Credit Filter)
+
+Phiên bản **v4.1.4** tích hợp hệ thống Auto-Farm tự động hóa từ đầu đến cuối danh sách khóa học kèm bộ lọc tín chỉ thông minh:
+
+### 🎯 Cơ chế Auto-Farm hoạt động như thế nào?
+1. **Quét hàng đợi tự động:** Khi bạn truy cập vào các trang danh mục hoặc tìm kiếm khóa học (`/public/home/search`, `/category/show`, `/user/studyTask`), FUXUE tự động quét tất cả các thẻ khóa học hiển thị trên trang và nạp vào hàng đợi `ja_fuxue_course_queue`.
+2. **Theo dõi trên Liquid Glass HUD:** Trên thanh HUD có badge `Auto-Farm [Q: N]` (trong đó `N` là số khóa học đang chờ trong hàng đợi). Bạn có thể click trực tiếp vào badge này để Bật/Tắt nhanh tính năng Auto-Farm.
+3. **Tự động chuyển bài tiếp theo:** Khi hoàn thành bài học cuối cùng và thi đỗ bài thi ($\ge 80$ hoặc 100/100) — hoặc khóa học kết thúc mà không có bài thi — FUXUE tự động thêm mã khóa học vào danh sách đã hoàn thành (`ja_fuxue_completed_courses`) và tự động điều hướng sang khóa học hợp lệ kế tiếp trong hàng đợi.
+
+### 🛡️ Bộ lọc tín chỉ thông minh (Smart Credit Filter - Chỉ học bài có điểm)
+- **Mục đích:** Các khóa học không có điểm tín chỉ (`Credit Score: 0`) thường chỉ là bài đọc phổ biến, không có bài thi và không đóng góp vào KPI hoàn thành tín chỉ của học viên.
+- **Nhận diện chính xác đa ngôn ngữ:**
+  - Tiếng Anh: `Credit Score：(0)`, `Credit Score: 0` (hỗ trợ cả dấu hai chấm toàn giác `：` và bán giác `:`).
+  - Tiếng Trung: `学分：(0)`, `学分：0`.
+  - Tiếng Việt: `Điểm học phần：(0)`.
+- **Hành vi khi phát hiện bài 0 điểm:**
+  - Lập tức tạm dừng phát video để tiết kiệm tài nguyên mạng và CPU.
+  - Cập nhật trạng thái Liquid Glass HUD: **BỎ QUA (0 ĐIỂM) - ĐÓNG TAB ⏭️** (màu cam cảnh báo).
+  - Ghi nhật ký hoạt động: `[CREDIT_FILTER] ⏭️ BỎ QUA KHÓA HỌC: Phát hiện không có điểm tín chỉ... Tự động đóng tab sau 2.5s!`.
+  - Lưu mã khóa học vào danh sách bỏ qua `ja_fuxue_skipped_courses` để không bao giờ học lại.
+  - **Tự động đóng tab an toàn (Auto-Close Tab):** Sau 2.5 giây đếm ngược, Background Service Worker (`background.js`) tự động gọi API `chrome.tabs.remove()` để đóng sạch tab 0 điểm khỏi trình duyệt.
+  - Nếu **Auto-Farm** đang BẬT: Tiện ích tự động mở khóa học có điểm kế tiếp trong hàng đợi trước khi đóng tab cũ.
+
+---
+
+## 6. 📑 Quản Lý Nhật Ký, Bộ Nhớ Đáp Án & Cấu Hình Popup
 
 Bấm vào biểu tượng extension trên thanh công cụ để mở Popup:
-1. **📑 Nhật Ký (View Logs):** Xem trực tiếp lịch sử hoạt động chi tiết (thời gian chuyển bài, tiến độ video, câu hỏi ghi nhớ). Bạn có thể bấm **📥 Tải File Log (.txt)** để xuất báo cáo. Nhật ký tự động xóa sau 3 ngày để không làm nặng trình duyệt.
-2. **📋 Đáp Án (Copy Keys):** Sao chép toàn bộ cơ sở dữ liệu câu hỏi và đáp án đã học vào Clipboard dưới dạng JSON.
-3. **🔄 Đặt Lại (Reset Cache):** Xóa sạch bộ nhớ đáp án và trạng thái thi nếu bạn muốn làm mới lại từ đầu.
+1. **🎛️ Nút Điều Khiển Master:** Bấm **DỪNG TỰ ĐỘNG** / **TIẾP TỤC HỌC** để kiểm soát toàn bộ vòng lặp.
+2. **🚜 Auto-Farm Danh Sách Khóa:** Bật/tắt tự động chuyển khóa học liên tục sau khi thi đỗ.
+3. **🎯 Bỏ qua bài 0 điểm:** Bật/tắt bộ lọc tín chỉ thông minh (mặc định BẬT để tối ưu KPI).
+4. **📑 Nhật Ký (View Logs):** Xem trực tiếp lịch sử hoạt động chi tiết (thời gian chuyển bài, tiến độ video, câu hỏi ghi nhớ, log bỏ qua bài 0 điểm). Bạn có thể bấm **📥 Tải File Log (.txt)** để xuất báo cáo. Nhật ký tự động xóa sau 3 ngày.
+5. **📋 Đáp Án (Copy Keys):** Sao chép toàn bộ cơ sở dữ liệu câu hỏi và đáp án đã học vào Clipboard dưới dạng JSON.
+6. **🔄 Đặt Lại (Reset Cache):** Xóa sạch bộ nhớ đáp án, hàng đợi Auto-Farm và trạng thái thi nếu bạn muốn làm mới lại từ đầu.
 
 ---
 
-## 6. ❓ Câu Hỏi Thường Gặp (Troubleshooting)
+## 7. ❓ Câu Hỏi Thường Gặp (Troubleshooting)
 
 **Q1: Video bị tạm dừng khi tôi chuyển sang tab khác?**
-> FUXUE v4.1.2 tự động khóa các sự kiện `blur` và `visibilitychange`. Video sẽ vẫn chạy mượt mà ngay cả khi bạn thu nhỏ cửa sổ trình duyệt nhờ công nghệ Audio Heartbeat 24/7.
+> FUXUE tự động khóa các sự kiện `blur` và `visibilitychange`. Video sẽ vẫn chạy mượt mà ngay cả khi bạn thu nhỏ cửa sổ trình duyệt nhờ công nghệ Audio Heartbeat 24/7.
 
 **Q2: Khóa học không có bài thi thì extension có bị lỗi chuyển trang không?**
-> Không. FUXUE v4.1.2 tự phát hiện thông báo `"No Exam"` / `"Khóa học không có kỳ thi"` và sẽ dừng lại an toàn mà không ép chuyển hướng sang màn hình thi.
+> Không. FUXUE tự phát hiện thông báo `"No Exam"` / `"Khóa học không có kỳ thi"` và sẽ hoàn tất khóa học an toàn, sau đó tự chuyển sang khóa tiếp theo nếu bật Auto-Farm.
 
-**Q3: Tôi muốn tự làm bài thi mà không để extension tự động can thiệp?**
-> Rất đơn giản, hãy bấm nút **⏹️ Dừng tự động** trên HUD trước khi vào đề thi. Extension sẽ tạm dừng hoàn toàn cho đến khi bạn bấm **▶️ Tiếp tục tự động**.
+**Q3: Tôi muốn học cả các khóa học 0 tín chỉ thì làm thế nào?**
+> Rất đơn giản, mở Extension Popup và gạt tắt công tắc **"Bỏ qua bài 0 điểm"**. FUXUE sẽ học bình thường tất cả các bài.
+
+**Q4: Tôi muốn tự làm bài thi mà không để extension tự động can thiệp?**
+> Hãy bấm nút **⏹️ Dừng tự động** trên HUD trước khi vào đề thi. Extension sẽ tạm dừng hoàn toàn cho đến khi bạn bấm **▶️ Tiếp tục tự động**.

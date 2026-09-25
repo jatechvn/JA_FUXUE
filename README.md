@@ -1,6 +1,6 @@
 # 🛡️ FUXUE SILENT PRO — Foxconn E-Learning Automation Suite
 
-![Version](https://img.shields.io/badge/version-4.1.3-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/version-4.1.4-blue.svg?style=flat-square)
 ![Manifest](https://img.shields.io/badge/manifest-v3-green.svg?style=flat-square)
 ![Architecture](https://img.shields.io/badge/engine-Pure_Organic_1.0x-orange.svg?style=flat-square)
 ![Platform](https://img.shields.io/badge/platform-Chrome_%7C_Edge_%7C_Cốc_Cốc-purple.svg?style=flat-square)
@@ -12,6 +12,10 @@ Hệ sinh thái tự động hóa học tập, thi cử và hoàn thành khóa h
 
 ## 🌟 Tính Năng Cốt Lõi (Core Features)
 
+- **Auto-Farm Next Course:** Tự động cày liên tục cả danh sách khóa học qua đêm hoặc trong giờ làm việc mà không cần click tay.
+- **Smart Credit Filter (Bỏ qua bài 0 điểm):**
+  - Tự động nhận diện điểm tín chỉ: `Credit Score：(0)`, `学分：(0)`, `Điểm học phần：(0)`.
+  - Tự động bỏ qua các khóa học 0 điểm (không có đề thi, không cộng điểm KPI), chỉ tập trung học các khóa có điểm tín chỉ (> 0).
 - **Master Stop / Resume Controller:** Nút điều khiển tạm dừng / chạy tiếp tự động hóa trực tiếp ngay trên Liquid Glass HUD và trong Extension Popup (`popup.html`).
 - **100% Pure Organic Playback (Zero API Spoofing):**
   - Chạy video đúng tốc độ 1.0x chuẩn thời gian thực, không gọi API giả mạo `addStudyRecordnew` gây cờ nghi vấn (anti-cheat flags).

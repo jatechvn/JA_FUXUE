@@ -2,6 +2,37 @@
 
 Tất cả các thay đổi quan trọng của dự án FUXUE SILENT PRO được ghi lại chi tiết tại đây theo chuẩn Semantic Versioning.
 
+## [v4.1.4] - 2026-09-25
+
+### 🚀 Nâng cấp & Tính năng mới (Idea 1 - Auto-Farm Next Course & Smart Credit Filter)
+- **Tự động cày danh sách khóa học (Auto-Farm Next Course):**
+  - Tự động quét và lưu danh sách khóa học từ các trang danh mục / tìm kiếm (`/public/home/search`, `/category/show`, `/user/studyTask`) vào hàng đợi `ja_fuxue_course_queue`.
+  - Hiển thị badge trạng thái hàng đợi `Auto-Farm [Q: N]` trực tiếp trên thanh Liquid Glass HUD. Người dùng có thể click để Bật/Tắt nhanh tính năng này.
+  - Tích hợp công tắc bật/tắt Auto-Farm trong Extension Popup (`popup.html` và `popup.js`).
+  - Khi hoàn thành một khóa học (thi đỗ $\ge 80$ hoặc 100/100, hoặc học xong toàn bộ bài không có kỳ thi), FUXUE tự động ghi nhận vào `ja_fuxue_completed_courses` và tự động điều hướng sang khóa học hợp lệ tiếp theo trong hàng đợi.
+- **Tự động đóng tab bài 0 điểm (Auto-Close 0-Credit Tabs):**
+  - Tích hợp Background Service Worker (`background.js`) và Isolated Bridge (`bridge.js`) với quyền `"tabs"`.
+  - Khi phát hiện khóa học 0 tín chỉ (`Credit Score: (0)`): Tự động hiển thị countdown `BỎ QUA (0 ĐIỂM) - ĐÓNG TAB ⏭️` trên HUD và tự động đóng tab sau 2.5 giây thông qua `chrome.tabs.remove()`.
+  - Nếu Auto-Farm đang bật: Tự động mở khóa học có điểm tiếp theo trong hàng đợi đồng thời đóng tab 0 điểm cũ.
+- **Nhận diện Lịch sử thi thông minh (Exam Record Smart Check - Chống thi lặp lại):**
+  - Tự động kích hoạt kiểm tra tab `Exam record` (`#ksjl`) trên trang học thông qua `loadExamRecordList()` / `a.ksjl`.
+  - Phân tích đa ngôn ngữ: `Is Get: Yes` / `Valid or not: Yes` (Đã nhận tín chỉ), và bảng `Exam record：` (`Examination Score >= 80`, `Is Pass: Yes` / `及格: 是`).
+  - Khi phát hiện khóa học đã từng thi đạt: Lập tức ghi nhận hoàn thành vào `ja_fuxue_completed_courses`, hiển thị HUD `ĐÃ THI ĐẠT (100 Đ) 🏆`, khóa chặt không cho gọi lại `examUI()`, và tự động chuyển thẳng sang khóa học kế tiếp nếu Auto-Farm đang bật. Triệt tiêu hoàn toàn hiện tượng làm đi làm lại đề đã đạt điểm!
+- **Bộ lọc tín chỉ thông minh (Smart Credit Score Filter):**
+  - Tự động phát hiện số điểm học phần / tín chỉ của khóa học trên trang học tập (`/public/play/play`, `/public/play/playCourse`) và trang danh sách khóa học.
+  - Nhận diện đa ngôn ngữ:
+    - Tiếng Anh: `Credit Score：(0)`, `Credit Score: 0` (hỗ trợ cả dấu hai chấm toàn giác `：` và bán giác `:`).
+    - Tiếng Trung: `学分：(0)`, `学分：0`.
+    - Tiếng Việt: `Điểm học phần：(0)`.
+  - Tự động bỏ qua các khóa học 0 tín chỉ (`Credit Score = 0`) vì đây là các khóa phổ biến không có bài thi và không đóng góp vào KPI tín chỉ.
+  - Khi phát hiện khóa 0 điểm: Lập tức dừng phát video, chuyển trạng thái HUD sang `BỎ QUA (0 ĐIỂM) - ĐÓNG TAB ⏭️`, ghi nhận cảnh báo vào nhật ký `[CREDIT_FILTER]`, lưu vào danh sách đã bỏ qua `ja_fuxue_skipped_courses` và kích hoạt tự động đóng tab.
+  - Tích hợp công tắc **"Bỏ qua bài 0 điểm"** trong Popup (`chk-filter-credits`) kèm badge trạng thái trực quan.
+
+### 📦 Phát hành
+- Đồng bộ version 4.1.4 trong `manifest.json`, `content.js`, `inject.js`, `bridge.js`, `background.js`, `popup.html`, `popup.css`, `popup.js`, `auto_study_foxconn_v4.0.3_full.js`, `ABOUT.txt`, `README.md`, `USERGUIDE.md`, `RELEASE_NOTES.md`.
+
+---
+
 ## [v4.1.3] - 2026-09-24
 
 ### 🐛 Sửa lỗi & Tối ưu hóa (Hotfix)

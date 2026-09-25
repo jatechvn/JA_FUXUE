@@ -1,5 +1,5 @@
 /**
- * FUXUE SILENT PRO v4.1.3 - 100% Pure Organic Playback (Zero API Spoofing)
+ * FUXUE SILENT PRO v4.1.4 - 100% Pure Organic Playback (Zero API Spoofing)
  * Matches: *://iedu.foxconn.com/*, *://ieduapi.foxconn.com/*
  * Run-At: document_start (world: MAIN)
  * Author: JATech (https://jatechvn.github.io)
@@ -13,12 +13,14 @@
  * - Native DOM auto-next when video naturally finishes and reaches 100%.
  * - Master Stop / Resume button to pause/resume automation on demand.
  * - Accurate 100% PDF page completion (fixes N-1 page ratio rounding bug).
+ * - Auto-Farm Next Course: Tự động học liên tục cả danh sách khóa học.
+ * - Smart Credit Filter: Bỏ qua bài 0 điểm tín chỉ (Credit Score: 0) không có bài thi.
  */
 (function() {
     if (window.fuxueProActive) return;
     window.fuxueProActive = true;
 
-    console.log("%c[FUXUE PRO v4.1.3]%c PURE ORGANIC STEALTH ENGINE (JATech)", "color:#00ff9d;font-weight:bold;background:#111;padding:2px 6px;border-radius:4px;", "color:#38bdf8;");
+    console.log("%c[FUXUE PRO v4.1.4]%c PURE ORGANIC STEALTH ENGINE (JATech)", "color:#00ff9d;font-weight:bold;background:#111;padding:2px 6px;border-radius:4px;", "color:#38bdf8;");
 
     // =========================================================================
     // 0. ACTIVITY LOGGER ENGINE (AUTO-SAVED IN LOCALSTORAGE & EXPIRED AFTER 3 DAYS)
@@ -68,7 +70,7 @@
 
     window.fuxueAddLog = addLog;
     window.fuxueGetLogs = getCleanLogs;
-    addLog('INFO', 'BOOT', 'Khởi động FUXUE PRO v4.1.3 (Organic 1.0x Real-time Stealth & Auto-Replay)');
+    addLog('INFO', 'BOOT', 'Khởi động FUXUE PRO v4.1.4 (Auto-Farm & Credit Filter Edition)');
 
     // 1. SYSTEM HOOKS (ANTI-BLUR & STEALTH FOCUS)
     try {
@@ -276,7 +278,7 @@
         const h = document.createElement('div');
         h.id = "fuxue-ui-v4";
         h.style.cssText = "padding:16px 18px;background:rgba(255,255,255,0.78);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);color:#0f172a;border:1px solid rgba(255,255,255,0.95);border-radius:24px;font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;font-size:12px;width:260px;position:fixed;bottom:25px;right:25px;z-index:2147483647;box-shadow:0 20px 50px rgba(0,50,150,0.14),0 0 0 1px rgba(0,102,255,0.12);display:flex;flex-direction:column;gap:8px;pointer-events:auto;transition:all 0.3s ease;";
-        h.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.07);padding-bottom:7px;margin-bottom:2px;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:14px;">🛡️</span><b style="font-size:12.5px;color:#0052cc;font-weight:800;letter-spacing:0.3px;">FUXUE PRO v4.1.3</b></div><span style="font-size:9.5px;font-weight:800;background:rgba(0,102,255,0.1);color:#0066ff;border:1px solid rgba(0,102,255,0.25);padding:2px 7px;border-radius:10px;letter-spacing:0.5px;">ORGANIC 1x</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Chế độ:</span><span id="fx-mode" style="font-weight:700;color:#0066ff;font-size:11.5px;">ORGANIC 1.0X</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Trạng thái:</span><span id="fx-stat" style="font-weight:700;color:#10b981;font-size:11.5px;">Đang phát</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Heartbeat:</span><span id="fx-hb" style="color:#0284c7;font-family:monospace;font-weight:700;font-size:11.5px;">Active 24/7</span></div><div style="margin-top:4px;padding-top:7px;border-top:1px solid rgba(0,0,0,0.07);"><div style="font-size:10px;color:#94a3b8;margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Bài học hiện tại:</div><div id="fx-less" style="font-size:11.5px;line-height:1.4;word-break:break-word;color:#1e293b;font-weight:600;">N/A</div></div><button id="fx-btn-stop" style="margin-top:4px;padding:8px 14px;border:none;border-radius:12px;font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:0.3px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s ease;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;box-shadow:0 4px 14px rgba(220,38,38,0.38);width:100%;"><span id="fx-btn-stop-icon">⏹️</span><span id="fx-btn-stop-text">Dừng tự động</span></button>';
+        h.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.07);padding-bottom:7px;margin-bottom:2px;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:14px;">🛡️</span><b style="font-size:12.5px;color:#0052cc;font-weight:800;letter-spacing:0.3px;">FUXUE PRO v4.1.4</b></div><span style="font-size:9.5px;font-weight:800;background:rgba(0,102,255,0.1);color:#0066ff;border:1px solid rgba(0,102,255,0.25);padding:2px 7px;border-radius:10px;letter-spacing:0.5px;">ORGANIC 1x</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Chế độ:</span><span id="fx-mode" style="font-weight:700;color:#0066ff;font-size:11.5px;">ORGANIC 1.0X</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Trạng thái:</span><span id="fx-stat" style="font-weight:700;color:#10b981;font-size:11.5px;">Đang phát</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Heartbeat:</span><span id="fx-hb" style="color:#0284c7;font-family:monospace;font-weight:700;font-size:11.5px;">Active 24/7</span></div><div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748b;font-size:11.5px;font-weight:500;">Auto-Farm:</span><span id="fx-autofarm-badge" style="font-weight:700;font-size:11px;cursor:pointer;padding:1.5px 7px;border-radius:6px;transition:all 0.2s ease;">TẮT ⏸️</span></div><div style="margin-top:4px;padding-top:7px;border-top:1px solid rgba(0,0,0,0.07);"><div style="font-size:10px;color:#94a3b8;margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Bài học hiện tại:</div><div id="fx-less" style="font-size:11.5px;line-height:1.4;word-break:break-word;color:#1e293b;font-weight:600;">N/A</div></div><button id="fx-btn-stop" style="margin-top:4px;padding:8px 14px;border:none;border-radius:12px;font-family:inherit;font-size:11.5px;font-weight:800;letter-spacing:0.3px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s ease;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;box-shadow:0 4px 14px rgba(220,38,38,0.38);width:100%;"><span id="fx-btn-stop-icon">⏹️</span><span id="fx-btn-stop-text">Dừng tự động</span></button>';
         document.body.appendChild(h);
 
         const btnStop = h.querySelector('#fx-btn-stop');
@@ -286,7 +288,16 @@
                 setAutoStopped(!isAutoStopped());
             });
         }
+
+        const badgeFarm = h.querySelector('#fx-autofarm-badge');
+        if (badgeFarm) {
+            badgeFarm.addEventListener('click', (e) => {
+                e.stopPropagation();
+                setAutoFarmEnabled(!isAutoFarmEnabled());
+            });
+        }
         updateStopUI();
+        updateAutoFarmUI();
     };
 
     if (document.body) createUI();
@@ -297,6 +308,310 @@
         const el = document.getElementById('fx-' + id);
         if (el) el.innerText = text;
     };
+
+    // =========================================================================
+    // 5.5. AUTO-FARM NEXT COURSE & CREDIT SCORE FILTER ENGINE
+    // =========================================================================
+    const AUTOFARM_KEY = 'ja_fuxue_autofarm';
+    const FILTER_CREDITS_KEY = 'ja_fuxue_filter_credits';
+    const COURSE_QUEUE_KEY = 'ja_fuxue_course_queue';
+    const COMPLETED_COURSES_KEY = 'ja_fuxue_completed_courses';
+    const SKIPPED_COURSES_KEY = 'ja_fuxue_skipped_courses';
+    const FARM_RETURN_URL_KEY = 'ja_fuxue_farm_return_url';
+
+    const isAutoFarmEnabled = () => localStorage.getItem(AUTOFARM_KEY) === 'true';
+    const isFilterCreditsEnabled = () => localStorage.getItem(FILTER_CREDITS_KEY) !== 'false';
+
+    const setAutoFarmEnabled = (enabled) => {
+        localStorage.setItem(AUTOFARM_KEY, enabled ? 'true' : 'false');
+        updateAutoFarmUI();
+        if (enabled) {
+            addLog('SUCCESS', 'AUTO_FARM', '🚀 Đã BẬT chế độ Auto-Farm (Tự động cày liên tục cả danh sách khóa học)!');
+        } else {
+            addLog('INFO', 'AUTO_FARM', '⏸️ Đã TẮT chế độ Auto-Farm.');
+        }
+    };
+    window._fxSetAutoFarm = setAutoFarmEnabled;
+
+    const setFilterCreditsEnabled = (enabled) => {
+        localStorage.setItem(FILTER_CREDITS_KEY, enabled ? 'true' : 'false');
+    };
+    window._fxSetFilterCredits = setFilterCreditsEnabled;
+
+    const getCurrentCourseId = () => {
+        try {
+            const u = new URL(location.href);
+            const cid = u.searchParams.get('courseId') || u.searchParams.get('id');
+            if (cid) return String(cid);
+        } catch (e) {}
+        try {
+            if (window.courseId) return String(window.courseId);
+        } catch (e) {}
+        try {
+            const match = document.documentElement.innerHTML.match(/courseId[=:"']\s*([0-9]+)/i);
+            if (match) return match[1];
+        } catch (e) {}
+        return null;
+    };
+
+    const isPlayPage = () => {
+        const p = location.pathname.toLowerCase();
+        return p.includes('/play/play') || p.includes('/play/playcourse');
+    };
+
+    const isListPage = () => {
+        const p = location.pathname.toLowerCase();
+        return p.includes('/category/show') || p.includes('/home/search') || p.includes('/user/studytask') || p.includes('/home/homepage');
+    };
+
+    // Nhận diện điểm tín chỉ chuẩn xác đa ngôn ngữ:
+    // Tiếng Anh: "Credit Score：(0)", "Credit Score: (0)", "Credit Score：0", "Credit Score: 0", "Credit Score：(15)"
+    // Tiếng Trung: "学分：(0)", "学分：0", "学分值：0", "学分：(15)"
+    // Tiếng Việt: "Điểm học phần：(0)", "Điểm học phần: 0"
+    const detectCourseCreditInfo = () => {
+        try {
+            const bodyText = document.body ? document.body.innerText : '';
+            // 1. Nhận diện khóa học 0 tín chỉ
+            if (/Credit\s*Score[：:\s]*\(\s*0(?:\.0+)?\s*\)/i.test(bodyText) ||
+                /Credit\s*Score[：:\s]+0(?:\.0+)?(?:\s|$|[^\d])/i.test(bodyText) ||
+                /学分[：:\s]*\(\s*0(?:\.0+)?\s*\)/.test(bodyText) ||
+                /学分[：:\s]+0(?:\.0+)?(?:\s|$|[^\d])/.test(bodyText) ||
+                /Điểm\s*học\s*phần[：:\s]*\(\s*0(?:\.0+)?\s*\)/i.test(bodyText)) {
+                return { hasCredit: false, score: 0, text: 'Credit Score：(0)' };
+            }
+
+            // 2. Nhận diện khóa học có điểm tín chỉ dương
+            const match = bodyText.match(/(?:Credit\s*Score|学分|Điểm\s*học\s*phần)[：:\s]*\(?([0-9]+(?:\.[0-9]+)?)\)?/i);
+            if (match) {
+                const val = parseFloat(match[1]);
+                return { hasCredit: val > 0, score: val, text: match[0] };
+            }
+        } catch(e) {}
+        return { hasCredit: null, score: null, text: null };
+    };
+
+    const getCourseQueue = () => {
+        try {
+            const raw = localStorage.getItem(COURSE_QUEUE_KEY);
+            return raw ? JSON.parse(raw) : [];
+        } catch(e) { return []; }
+    };
+
+    const saveCourseQueue = (queue) => {
+        try {
+            localStorage.setItem(COURSE_QUEUE_KEY, JSON.stringify(queue));
+        } catch(e) {}
+    };
+
+    const getCompletedCourses = () => {
+        try {
+            const raw = localStorage.getItem(COMPLETED_COURSES_KEY);
+            return raw ? JSON.parse(raw) : [];
+        } catch(e) { return []; }
+    };
+
+    const addCompletedCourse = (cid) => {
+        if (!cid) return;
+        try {
+            const comp = getCompletedCourses();
+            if (!comp.includes(String(cid))) {
+                comp.push(String(cid));
+                localStorage.setItem(COMPLETED_COURSES_KEY, JSON.stringify(comp));
+            }
+        } catch(e) {}
+    };
+
+    const getSkippedCourses = () => {
+        try {
+            const raw = localStorage.getItem(SKIPPED_COURSES_KEY);
+            return raw ? JSON.parse(raw) : [];
+        } catch(e) { return []; }
+    };
+
+    const addSkippedCourse = (cid) => {
+        if (!cid) return;
+        try {
+            const sk = getSkippedCourses();
+            if (!sk.includes(String(cid))) {
+                sk.push(String(cid));
+                localStorage.setItem(SKIPPED_COURSES_KEY, JSON.stringify(sk));
+            }
+        } catch(e) {}
+    };
+
+    const getNextEligibleCourseInQueue = (currentCid) => {
+        const queue = getCourseQueue();
+        const completed = getCompletedCourses();
+        const skipped = getSkippedCourses();
+        return queue.find(c => {
+            const id = String(c.courseId);
+            return (!currentCid || id !== String(currentCid)) && !completed.includes(id) && !skipped.includes(id);
+        }) || null;
+    };
+
+    const updateAutoFarmUI = () => {
+        const badge = document.getElementById('fx-autofarm-badge');
+        if (badge) {
+            const on = isAutoFarmEnabled();
+            if (on) {
+                badge.innerText = 'BẬT ⚡';
+                badge.style.background = 'rgba(16, 185, 129, 0.15)';
+                badge.style.color = '#059669';
+                badge.style.border = '1px solid rgba(16, 185, 129, 0.3)';
+            } else {
+                badge.innerText = 'TẮT ⏸️';
+                badge.style.background = 'rgba(100, 116, 139, 0.12)';
+                badge.style.color = '#64748b';
+                badge.style.border = '1px solid rgba(100, 116, 139, 0.2)';
+            }
+        }
+    };
+    window._fxUpdateAutoFarmUI = updateAutoFarmUI;
+
+    window._jaFarmNavigating = false;
+    const advanceToNextCourse = (reason) => {
+        if (window._jaFarmNavigating) return;
+        window._jaFarmNavigating = true;
+
+        const currentCid = getCurrentCourseId();
+        const next = getNextEligibleCourseInQueue(currentCid);
+
+        if (next && next.url) {
+            const titleDisplay = (next.title || `Khóa ${next.courseId}`).substring(0, 22);
+            addLog('SUCCESS', 'AUTO_FARM', `${reason} -> Chuẩn bị chuyển sang: ${next.title} (ID: ${next.courseId})`);
+            updateUI('stat', `CHUYỂN: ${titleDisplay}... 🚀`);
+            setTimeout(() => {
+                location.href = next.url;
+            }, 3000);
+        } else {
+            const retUrl = localStorage.getItem(FARM_RETURN_URL_KEY);
+            addLog('SUCCESS', 'AUTO_FARM', `🏆 Đã hoàn thành/duyệt qua toàn bộ danh sách khóa học trong hàng đợi!`);
+            updateUI('stat', 'XONG TẤT CẢ KHÓA! 🏆');
+            if (retUrl && !location.href.includes(retUrl)) {
+                setTimeout(() => {
+                    location.href = retUrl;
+                }, 3500);
+            }
+        }
+    };
+
+    const requestCloseTab = (opts = {}) => {
+        try {
+            window.postMessage({
+                type: 'FUXUE_CLOSE_TAB',
+                openNextUrl: opts.openNextUrl || null,
+                reason: opts.reason || 'Auto-close tab'
+            }, '*');
+        } catch(e) {}
+        try {
+            window.close();
+        } catch(e) {}
+    };
+    window._fxRequestCloseTab = requestCloseTab;
+
+    const scanListPageCourses = () => {
+        try {
+            const anchors = Array.from(document.querySelectorAll('a[href*="play?courseId="], a[href*="playCourse?courseId="]'));
+            if (anchors.length === 0) return [];
+            const queue = getCourseQueue();
+            const seen = new Set(queue.map(q => String(q.courseId)));
+            let addedCount = 0;
+
+            anchors.forEach(a => {
+                try {
+                    const u = new URL(a.href);
+                    const cid = u.searchParams.get('courseId');
+                    if (cid && !seen.has(cid)) {
+                        seen.add(cid);
+                        const card = a.closest('li, .item, .course_item, dl, tr') || a;
+                        const titleEl = card.querySelector('.title, .title_a, h3, h4, p.name') || a;
+                        const title = (titleEl.getAttribute('title') || titleEl.innerText || '').trim() || `Course ${cid}`;
+                        queue.push({
+                            courseId: cid,
+                            url: a.href,
+                            title: title.substring(0, 100)
+                        });
+                        addedCount++;
+                    }
+                } catch(e) {}
+            });
+
+            if (addedCount > 0) {
+                saveCourseQueue(queue);
+            }
+            localStorage.setItem(FARM_RETURN_URL_KEY, location.href);
+            return queue;
+        } catch(e) {
+            return [];
+        }
+    };
+
+    /**
+     * Kiểm tra lịch sử thi (Exam record / 考试记录) trên trang playCourse.
+     * Dựa vào "Exam record：" và "Course Credit：" để biết khóa học đã thi và đã đạt hay chưa.
+     */
+    let _lastKsjlRequestTime = 0;
+    const checkCourseExamRecord = () => {
+        try {
+            // Tự động kích hoạt load dữ liệu lịch sử thi nếu chưa được load
+            const now = Date.now();
+            if (now - _lastKsjlRequestTime > 4000) {
+                _lastKsjlRequestTime = now;
+                const ksjlBtn = document.querySelector('a.ksjl, a[href="#ksjl"]');
+                if (ksjlBtn) {
+                    try { ksjlBtn.click(); } catch(e) {}
+                } else if (typeof window.loadExamRecordList === 'function') {
+                    try { window.loadExamRecordList(); } catch(e) {}
+                }
+            }
+
+            // 1. Kiểm tra thuộc tính Is Get (Đã nhận điểm tín chỉ)
+            const isObtainEl = document.querySelector('.isObtain');
+            const isObtainText = (isObtainEl?.innerText || isObtainEl?.textContent || '').trim().toLowerCase();
+            const isGetPass = isObtainText === 'yes' || isObtainText === '是' || isObtainText === 'có' || isObtainText === 'true';
+
+            // 2. Quét bảng lịch sử thi (#ksjl table tr)
+            const ksjlPane = document.getElementById('ksjl');
+            const searchScope = ksjlPane || document;
+            const rows = Array.from(searchScope.querySelectorAll('table tr, tbody tr'));
+            
+            let bestScore = -1;
+            let hasPassedRow = false;
+
+            for (const tr of rows) {
+                const txt = tr.innerText.replace(/\s+/g, ' ').trim();
+                // Bỏ qua header hoặc template
+                if (txt.includes('Examination Score') || txt.includes('考试成绩') || txt.includes('Credit Score') || txt.includes('{{d[i]')) continue;
+
+                // Kiểm tra có từ khóa Pass/Yes/Đạt/是
+                const isPass = /\b(?:Yes|是|Đạt)\b/i.test(txt);
+                
+                // Trích xuất điểm số từ hàng
+                const scoreMatch = txt.match(/\b([0-9]{1,3})\s+(?:Yes|是|Đạt)\b/i) || txt.match(/\b([0-9]{1,3})\b/);
+                if (scoreMatch) {
+                    const score = parseInt(scoreMatch[1], 10);
+                    if (score > bestScore) bestScore = score;
+                    if (isPass || score >= 80) {
+                        hasPassedRow = true;
+                    }
+                } else if (isPass) {
+                    hasPassedRow = true;
+                }
+            }
+
+            if (isGetPass || hasPassedRow || bestScore >= 80) {
+                const finalScore = bestScore >= 0 ? bestScore : 100;
+                return {
+                    hasPassed: true,
+                    score: finalScore,
+                    isGet: isGetPass,
+                    reason: isGetPass ? 'Is Get: Yes (Đã hoàn thành và nhận tín chỉ)' : `Đã thi đạt ${finalScore} điểm (Is Pass: Yes)`
+                };
+            }
+        } catch(e) {}
+        return { hasPassed: false, score: null, isGet: false, reason: null };
+    };
+    window._fxCheckCourseExamRecord = checkCourseExamRecord;
 
     // =========================================================================
     // 6. SELF-LEARNING EXAM SOLVER (ELIMINATION & ANSWER CAPTURE ENGINE)
@@ -856,7 +1171,11 @@
                 updateUI('stat', `ĐẠT ${currentScore}/100 ĐIỂM! 🎉`);
                 if (!window._loggedExamPass) {
                     window._loggedExamPass = true;
+                    addCompletedCourse(getCurrentCourseId());
                     addLog('SUCCESS', 'EXAM_FINISH', `🎉 XUẤT SẮC: Bạn đã đạt điểm tuyệt đối 100/100! Khóa học đã hoàn thành trọn vẹn.`);
+                    if (isAutoFarmEnabled() && !isAutoStopped()) {
+                        advanceToNextCourse('Thi đạt điểm tuyệt đối 100/100');
+                    }
                 }
             } else if (currentScore < passScore) {
                 updateUI('stat', `Điểm: ${currentScore}/${passScore} (Thi lại)`);
@@ -884,7 +1203,11 @@
                 updateUI('stat', `ĐÃ PASS: ${currentScore} ĐIỂM! ✅`);
                 if (!window._loggedExamPass) {
                     window._loggedExamPass = true;
+                    addCompletedCourse(getCurrentCourseId());
                     addLog('SUCCESS', 'EXAM_PASS', `✅ Chúc mừng! Bạn đã đạt ${currentScore} điểm (Điểm chuẩn qua: ${passScore}). Khóa học đã hoàn thành!`);
+                    if (isAutoFarmEnabled() && !isAutoStopped()) {
+                        advanceToNextCourse(`Thi qua môn (${currentScore} điểm)`);
+                    }
                 }
             }
         }
@@ -945,8 +1268,91 @@
 
     setInterval(() => {
         updateStopUI();
+        updateAutoFarmUI();
         if (isAutoStopped()) {
             return;
+        }
+
+        // 1. XỬ LÝ TRANG DANH MỤC / TÌM KIẾM / NHIỆM VỤ HỌC TẬP (LIST PAGE AUTO-FARM)
+        if (isListPage()) {
+            const q = scanListPageCourses();
+            const completed = getCompletedCourses();
+            const skipped = getSkippedCourses();
+            const pending = q.filter(c => !completed.includes(String(c.courseId)) && !skipped.includes(String(c.courseId)));
+
+            updateUI('mode', 'AUTO-FARM');
+            updateUI('stat', `Tìm thấy ${q.length} khóa (${pending.length} chưa học)`);
+            updateUI('less', `Lọc bài có điểm (> 0): ${isFilterCreditsEnabled() ? 'BẬT ✅' : 'TẮT'}`);
+
+            if (isAutoFarmEnabled() && !isAutoStopped() && !window._jaFarmNavigating && pending.length > 0) {
+                advanceToNextCourse('Auto-Farm bắt đầu từ danh sách');
+            }
+            return;
+        }
+
+        // 2. XỬ LÝ BỘ LỌC TÍN CHỈ TRÊN TRANG BÀI HỌC (CREDIT SCORE FILTER)
+        // Bỏ qua các khóa học 0 điểm tín chỉ (Credit Score = 0) không có bài thi
+        if (isFilterCreditsEnabled() && isPlayPage()) {
+            const creditInfo = detectCourseCreditInfo();
+            if (creditInfo.hasCredit === false) {
+                // Khóa học 0 điểm tín chỉ (Credit Score: 0) -> Bỏ qua & Tự động đóng tab
+                if (!window._jaZeroCreditHandled) {
+                    window._jaZeroCreditHandled = true;
+                    const cid = getCurrentCourseId();
+                    addSkippedCourse(cid);
+
+                    const v = document.querySelector('video');
+                    if (v && !v.paused) try { v.pause(); } catch(e) {}
+
+                    if (isAutoFarmEnabled() && !isAutoStopped()) {
+                        const next = getNextEligibleCourseInQueue(cid);
+                        if (next && next.url) {
+                            addLog('WARN', 'CREDIT_FILTER', `⏭️ BỎ QUA KHÓA HỌC: Phát hiện không có điểm tín chỉ (${creditInfo.text || 'Credit Score: (0)'}). Chuyển sang khóa tiếp theo & tự động đóng tab sau 2.5s!`);
+                            updateUI('stat', 'BỎ QUA (0 ĐIỂM) - ĐÓNG TAB ⏭️');
+                            setTimeout(() => {
+                                requestCloseTab({
+                                    openNextUrl: next.url,
+                                    reason: 'Khóa học 0 điểm tín chỉ -> Mở khóa tiếp theo & Đóng tab cũ'
+                                });
+                            }, 2500);
+                            return;
+                        }
+                    }
+
+                    // Không bật Auto-Farm hoặc không còn khóa trong hàng đợi -> Tự động đóng tab
+                    addLog('WARN', 'CREDIT_FILTER', `⏭️ BỎ QUA KHÓA HỌC: Phát hiện không có điểm tín chỉ (${creditInfo.text || 'Credit Score: (0)'}). Khóa học không có bài thi, tự động đóng tab sau 2.5s!`);
+                    updateUI('stat', 'BỎ QUA (0 ĐIỂM) - ĐÓNG TAB ⏭️');
+                    setTimeout(() => {
+                        requestCloseTab({
+                            reason: 'Khóa học 0 điểm tín chỉ -> Tự động đóng tab'
+                        });
+                    }, 2500);
+                }
+                updateStopUI();
+                return; // Ngắt luồng học, tuyệt đối không học bài 0 điểm
+            }
+        }
+
+        // 2b. XỬ LÝ KIỂM TRA LỊCH SỬ THI TỪ "Exam record：" (TRÁNH THI ĐI THI LẠI ĐỀ ĐÃ ĐẠT)
+        // Dựa vào "Exam record：" và "Course Credit：" để biết khóa học đã thi và đã đạt điểm hay chưa
+        if (isPlayPage()) {
+            const examRecord = checkCourseExamRecord();
+            if (examRecord.hasPassed) {
+                const cid = getCurrentCourseId();
+                if (cid) addCompletedCourse(cid);
+                window._jaExamAlreadyPassed = true;
+                window._examNavigated = true; // Khóa chặt không cho kích hoạt thi lại
+
+                if (!window._loggedExamRecordPass) {
+                    window._loggedExamRecordPass = true;
+                    addLog('SUCCESS', 'EXAM_RECORD', `🏆 KHÓA HỌC ĐÃ TỪNG THI ĐẠT: Phát hiện trong Exam record (${examRecord.reason}). Điểm: ${examRecord.score}. Bỏ qua không thi lại!`);
+                    updateUI('stat', `ĐÃ THI ĐẠT (${examRecord.score} Đ) 🏆`);
+
+                    if (isAutoFarmEnabled() && !isAutoStopped()) {
+                        advanceToNextCourse(`Khóa học đã thi đạt trước đó (${examRecord.reason})`);
+                    }
+                }
+            }
         }
 
         const video = document.querySelector('video');
@@ -1220,6 +1626,23 @@
                     addLog('SUCCESS', 'FINISH', '🎉 CHÚC MỪNG: BẠN ĐÃ HOÀN THÀNH TẤT CẢ CÁC BÀI HỌC (100%) TRONG KHÓA HỌC!');
                 }
 
+                // KIỂM TRA LỊCH SỬ THI TRƯỚC KHI BẤM NÚT THI:
+                const examRecord = checkCourseExamRecord();
+                if (examRecord.hasPassed || window._jaExamAlreadyPassed) {
+                    const cid = getCurrentCourseId();
+                    if (cid) addCompletedCourse(cid);
+                    window._examNavigated = true;
+                    updateUI('stat', `ĐÃ THI ĐẠT (${examRecord.score || 100} Đ) 🏆`);
+                    if (!window._loggedExamRecordPass) {
+                        window._loggedExamRecordPass = true;
+                        addLog('SUCCESS', 'EXAM_RECORD', `🏆 BỎ QUA THI LẠI: Khóa học đã từng thi đạt (${examRecord.reason || 'Đạt điểm'}).`);
+                    }
+                    if (isAutoFarmEnabled() && !isAutoStopped()) {
+                        advanceToNextCourse(`Khóa học đã thi đạt (${examRecord.reason || 'Điểm đạt'})`);
+                    }
+                    return;
+                }
+
                 // TỰ ĐỘNG KÍCH HOẠT VÀ CHUYỂN SANG ĐỀ THI (CHỈ KHI KHÓA HỌC THỰC SỰ CÓ ĐỀ THI)
                 if (!window._examNavigated) {
                     const examTab = document.querySelector('a[href="#exam"], .tab-exam');
@@ -1251,10 +1674,19 @@
                                 const layerText = (document.querySelector('.layui-layer, .layui-layer-dialog')?.innerText || '').toLowerCase();
                                 if (layerText.includes('no exam') || layerText.includes('không có') || layerText.includes('无考试')) {
                                     updateUI('stat', 'HOÀN THÀNH TẤT CẢ! 🎉');
+                                    addCompletedCourse(getCurrentCourseId());
                                     addLog('SUCCESS', 'FINISH', 'Khóa học không có đề thi (No Exam). Khóa học đã hoàn thành 100%!');
+                                    if (isAutoFarmEnabled() && !isAutoStopped()) {
+                                        advanceToNextCourse('Hoàn thành khóa học (Không có đề thi)');
+                                    }
                                 }
                             }, 1200);
                         }, 500);
+                    } else {
+                        addCompletedCourse(getCurrentCourseId());
+                        if (isAutoFarmEnabled() && !isAutoStopped()) {
+                            advanceToNextCourse('Hoàn thành khóa học (Không có đề thi)');
+                        }
                     }
                 }
             }

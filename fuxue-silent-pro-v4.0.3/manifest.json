@@ -1,13 +1,17 @@
 {
   "manifest_version": 3,
   "name": "FUXUE SILENT PRO - Foxconn E-Learning Bypass",
-  "version": "4.1.3",
+  "version": "4.1.4",
   "description": "Tự động hóa học tập, bypass anti-pause, tự động học Video/PDF và giải đề thi trên iedu.foxconn.com",
   "permissions": [
     "storage",
     "activeTab",
-    "scripting"
+    "scripting",
+    "tabs"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "host_permissions": [
     "*://iedu.foxconn.com/*",
     "*://ieduapi.foxconn.com/*",
@@ -34,6 +38,17 @@
       ],
       "run_at": "document_start",
       "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://iedu.foxconn.com/*",
+        "*://ieduapi.foxconn.com/*",
+        "*://*.foxconn.com/*"
+      ],
+      "js": [
+        "bridge.js"
+      ],
+      "run_at": "document_start"
     }
   ],
   "icons": {

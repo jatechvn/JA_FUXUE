@@ -329,6 +329,10 @@ input:checked + .slider:before {
     background: #0066ff;
     box-shadow: 0 0 6px #0066ff;
 }
+.badge-dot.orange {
+    background: #f59e0b;
+    box-shadow: 0 0 6px #f59e0b;
+}
 
 .badge-text {
     color: var(--text-primary);

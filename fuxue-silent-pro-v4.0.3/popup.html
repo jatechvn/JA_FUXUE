@@ -14,7 +14,7 @@
                 <div class="logo-icon">🛡️</div>
                 <div>
                     <div class="app-name">FUXUE SILENT PRO</div>
-                    <div class="app-version">v4.1.3 Stealth Edition</div>
+                    <div class="app-version">v4.1.4 Auto-Farm Edition</div>
                 </div>
             </div>
             <div class="status-indicator online" id="global-status">ACTIVE</div>
@@ -72,6 +72,28 @@
                     <span class="slider"></span>
                 </label>
             </div>
+
+            <div class="toggle-item">
+                <div class="toggle-info">
+                    <div class="toggle-title">Auto-Farm Danh Sách Khóa</div>
+                    <div class="toggle-desc">Tự động chuyển khóa tiếp theo trong danh sách</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="chk-autofarm">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="toggle-item">
+                <div class="toggle-info">
+                    <div class="toggle-title">Bỏ qua bài 0 điểm (Credit = 0)</div>
+                    <div class="toggle-desc">Chỉ học bài có tín chỉ & có bài thi</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="chk-filter-credits" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
 
         <div class="exam-status-section">
@@ -84,6 +106,10 @@
                 <div class="status-badge-item">
                     <span class="badge-dot blue"></span>
                     <span class="badge-text">Exam: <b id="popup-exam-count">Tự học & loại trừ câu sai</b></span>
+                </div>
+                <div class="status-badge-item">
+                    <span class="badge-dot orange"></span>
+                    <span class="badge-text">Tín chỉ: <b id="popup-credit-filter">Chỉ học bài có điểm (> 0)</b></span>
                 </div>
             </div>
         </div>
