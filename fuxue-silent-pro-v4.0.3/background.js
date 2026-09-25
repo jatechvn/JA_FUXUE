@@ -8,15 +8,21 @@ chrome.runtime.onInstalled.addListener(() => {
     console.log('[FUXUE BG] Service worker installed.');
 });
 
-// Chống mở tab trùng lặp tự động khi tab đổi URL
+const isStudyPlayUrl = (u) => {
+    if (!u) return false;
+    const lower = u.toLowerCase();
+    return (lower.includes('/play/playcourse') || lower.includes('/play/play?')) && !lower.includes('examui') && !lower.includes('submitexam');
+};
+
+// Chống mở tab trùng lặp tự động khi tab đổi URL (chỉ áp dụng cho tab học video/play, tuyệt đối không đóng tab thi examUI)
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (changeInfo.url && changeInfo.url.includes('courseId=')) {
+    if (changeInfo.url && isStudyPlayUrl(changeInfo.url) && changeInfo.url.includes('courseId=')) {
         try {
             const urlObj = new URL(changeInfo.url);
             const cid = urlObj.searchParams.get('courseId');
             if (cid) {
                 chrome.tabs.query({ url: "*://iedu.foxconn.com/*" }, (tabs) => {
-                    const matchingTabs = tabs.filter(t => t.url && t.url.includes('courseId=' + cid));
+                    const matchingTabs = tabs.filter(t => isStudyPlayUrl(t.url) && t.url.includes('courseId=' + cid));
                     if (matchingTabs.length > 1) {
                         matchingTabs.sort((a, b) => a.id - b.id);
                         const primaryTab = matchingTabs[0];
@@ -37,7 +43,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
     const tabId = sender.tab ? sender.tab.id : null;
 
-    // 1. DEDUPLICATION GUARD: Kiểm tra xem đã có tab nào đang mở khóa học này chưa
+    // 1. DEDUPLICATION GUARD: Kiểm tra xem đã có tab nào đang mở khóa học này chưa (chỉ tính tab học play, không tính tab thi)
     if (msg.action === 'CHECK_DUPLICATE_PLAY_TAB') {
         const cid = String(msg.courseId || '');
         if (!cid || !tabId) {
@@ -46,7 +52,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         }
 
         chrome.tabs.query({ url: "*://iedu.foxconn.com/*" }, (tabs) => {
-            const matchingTabs = tabs.filter(t => t.url && t.url.includes('courseId=' + cid));
+            const matchingTabs = tabs.filter(t => isStudyPlayUrl(t.url) && t.url.includes('courseId=' + cid));
             if (matchingTabs.length > 1) {
                 matchingTabs.sort((a, b) => a.id - b.id);
                 const primaryTab = matchingTabs[0];

@@ -1244,6 +1244,8 @@
                 if (!window._retakingExam) {
                     window._retakingExam = true;
                     addLog('WARN', 'EXAM_RETAKE', `Điểm đạt ${currentScore} chưa qua điểm chuẩn ${passScore}. Tự động thi lại bằng đáp án chuẩn...`);
+                    const cid = getCurrentCourseId();
+                    const examTargetUrl = (window.path || '') + '/public/play/examUI?courseId=' + cid;
                     setTimeout(() => {
                         const retakeBtn = document.querySelector('button[onclick*="gotoExamUI"], a[onclick*="gotoExamUI"], .btn-retake');
                         if (typeof window.gotoExamUI === 'function') {
@@ -1252,14 +1254,12 @@
                             retakeBtn.click();
                         }
                         const examUiMatch = document.documentElement.innerHTML.match(/(?:\/public\/play\/examUI\?[^"'\s]+)/);
-                        if (examUiMatch) {
-                            setTimeout(() => {
-                                if (location.href.includes('submitExam')) {
-                                    location.href = examUiMatch[0];
-                                }
-                            }, 1000);
-                        }
-                    }, 2500);
+                        setTimeout(() => {
+                            if (location.href.toLowerCase().includes('submitexam')) {
+                                location.href = examUiMatch ? examUiMatch[0] : examTargetUrl;
+                            }
+                        }, 1200);
+                    }, 2000);
                 }
             } else {
                 updateUI('stat', `ĐÃ PASS: ${currentScore} ĐIỂM! - ĐÓNG TAB ✅`);
@@ -1761,12 +1761,28 @@
                         updateUI('stat', 'CHUYỂN SANG BÀI THI... 📝');
                         addLog('INFO', 'AUTO_EXAM', 'Tất cả bài học đã đạt 100%. Tự động kích hoạt Đề thi...');
 
-                        // Chuyển tab sang mục Exam
+                        const cid = getCurrentCourseId();
+                        const examTargetUrl = (window.path || '') + '/public/play/examUI?courseId=' + cid;
+
+                        // 1. Hook window.open để chống Chrome Popup Blocker chặn mở đề thi
+                        try {
+                            const origOpen = window.open;
+                            window.open = function(url) {
+                                if (url && (url.includes('examUI') || url.includes('exam'))) {
+                                    console.log('[FUXUE] 🚀 Chuyển hướng trực tiếp tab hiện tại sang đề thi:', url);
+                                    location.href = url;
+                                    return { focus: () => {} };
+                                }
+                                return origOpen.apply(window, arguments);
+                            };
+                        } catch(e) {}
+
+                        // 2. Chuyển tab sang mục Exam trên giao diện
                         if (examTab) {
                             try { examTab.click(); } catch(e) {}
                         }
 
-                        // Kích hoạt nút thi
+                        // 3. Kích hoạt gọi đề thi
                         setTimeout(() => {
                             if (examLink) {
                                 try { examLink.click(); } catch(e) {}
@@ -1776,12 +1792,11 @@
                                 try { window.gotoExam(); } catch(e) {}
                             }
 
-                            // Kiểm tra nếu hệ thống báo "No Exam" thì dừng lại và tự động đóng tab hoàn thành
+                            // 4. Kiểm tra popup hoặc dự phòng tự động chuyển hướng trực tiếp
                             setTimeout(() => {
                                 const layerText = (document.querySelector('.layui-layer, .layui-layer-dialog')?.innerText || '').toLowerCase();
                                 if (layerText.includes('no exam') || layerText.includes('không có') || layerText.includes('无考试')) {
                                     updateUI('stat', 'HOÀN THÀNH - ĐÓNG TAB 🎉');
-                                    const cid = getCurrentCourseId();
                                     addCompletedCourse(cid);
                                     addLog('SUCCESS', 'FINISH', 'Khóa học không có đề thi (No Exam). Khóa học đã hoàn thành 100%! Tự động đóng tab sau 2.5s...');
                                     const next = (isAutoFarmEnabled() && !isAutoStopped()) ? getNextEligibleCourseInQueue(cid) : null;
@@ -1792,8 +1807,15 @@
                                             reason: 'Khóa học hoàn thành 100% (No Exam)'
                                         });
                                     }, 2500);
+                                    return;
                                 }
-                            }, 1200);
+
+                                // 5. FALLBACK AN TOÀN TUYỆT ĐỐI: Nếu vẫn kẹt ở trang playCourse thì chủ động chuyển tab sang đề thi
+                                if (location.href.includes('playCourse') || location.href.includes('/play/play?')) {
+                                    addLog('INFO', 'AUTO_EXAM', `Đang trực tiếp chuyển hướng tab sang đề thi: ${examTargetUrl}`);
+                                    location.href = examTargetUrl;
+                                }
+                            }, 2500);
                         }, 500);
                     } else {
                         const cid = getCurrentCourseId();
